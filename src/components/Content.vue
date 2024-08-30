@@ -1,0 +1,159 @@
+<script setup lang="ts">
+import { ref } from 'vue';
+import Modal from './Modal.vue';
+
+const modalComponent = ref<InstanceType<typeof Modal>>();
+
+const showModal = () => {
+  modalComponent.value?.openDialog();    
+}
+
+</script>
+<template>
+  <section class="presentation-section">
+    <div class="presentation-section-content max-content-width">
+      <div class="presentation-section-description">
+        <h1>Salut, moi c'est <span>Hugo</span>.</h1>
+        <p>Développeur depuis 9 ans, développeur frontend depuis 6 ans et maintenant <span>pigiste</span>.</p>
+      </div>
+      <img alt="cartoon représentant Hugo" src="../assets/images/Avatar.png"  />
+    </div>
+  </section>
+  <section class="offer-section">
+    <div class="max-content-width">
+      <div>
+        <h1>Qu'est-ce j'offre?</h1>
+        <p>J'offre mon expertise pour vous accompagner dans la réalisation de vos projets comme:</p>
+      </div>
+      <div class="cards-list">
+        <div class="card">
+          <p>La création d'applications web personnalisées</p>
+          <svg @click="showModal" width="24" xmlns="http://www.w3.org/2000/svg" height="24" fill="none"><g data-testid="plus-square"><g class="fills"><rect rx="0" ry="0" width="24" height="24" class="frame-background"/></g><g class="frame-children"><g data-testid="svg-rect"><rect width="18" height="18" x="3" style="fill: none;" ry="2" rx="2" y="3" class="fills"/><g stroke-linejoin="round" stroke-linecap="round" class="strokes"><rect rx="2" ry="2" x="3" y="3" width="18" height="18" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M8 12h8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M8 12h8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M12 8v8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M12 8v8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g></g></g></svg>
+        </div>
+        <div class="card">
+          <p>La création de votre site web</p>
+          <svg @click="showModal" width="24" xmlns="http://www.w3.org/2000/svg" height="24" fill="none"><g data-testid="plus-square"><g class="fills"><rect rx="0" ry="0" width="24" height="24" class="frame-background"/></g><g class="frame-children"><g data-testid="svg-rect"><rect width="18" height="18" x="3" style="fill: none;" ry="2" rx="2" y="3" class="fills"/><g stroke-linejoin="round" stroke-linecap="round" class="strokes"><rect rx="2" ry="2" x="3" y="3" width="18" height="18" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M8 12h8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M8 12h8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M12 8v8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M12 8v8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g></g></g></svg>
+        </div>
+        <div class="card">
+          <p>La création de commerces en ligne</p>
+          <svg @click="showModal" width="24" xmlns="http://www.w3.org/2000/svg" height="24" fill="none"><g data-testid="plus-square"><g class="fills"><rect rx="0" ry="0" width="24" height="24" class="frame-background"/></g><g class="frame-children"><g data-testid="svg-rect"><rect width="18" height="18" x="3" style="fill: none;" ry="2" rx="2" y="3" class="fills"/><g stroke-linejoin="round" stroke-linecap="round" class="strokes"><rect rx="2" ry="2" x="3" y="3" width="18" height="18" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M8 12h8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M8 12h8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M12 8v8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M12 8v8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g></g></g></svg>
+        </div>
+        <div class="card">
+          <p>Appui à la R&D d'une entreprise</p>
+          <svg @click="showModal" width="24" xmlns="http://www.w3.org/2000/svg" height="24" fill="none"><g data-testid="plus-square"><g class="fills"><rect rx="0" ry="0" width="24" height="24" class="frame-background"/></g><g class="frame-children"><g data-testid="svg-rect"><rect width="18" height="18" x="3" style="fill: none;" ry="2" rx="2" y="3" class="fills"/><g stroke-linejoin="round" stroke-linecap="round" class="strokes"><rect rx="2" ry="2" x="3" y="3" width="18" height="18" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M8 12h8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M8 12h8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M12 8v8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M12 8v8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g></g></g></svg>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="max-content-width">
+      <div>
+        <h1>Comment ça se passe pour les projets?</h1>
+        <p>Tous les projets sont personnalisés selon vos besoin et votre réalité:</p>
+      </div>
+      <div class="cards-list">
+        <div class="card">
+          <p>Étape 1: Rencontre initiale</p>
+          <svg @click="showModal" width="24" xmlns="http://www.w3.org/2000/svg" height="24" fill="none"><g data-testid="plus-square"><g class="fills"><rect rx="0" ry="0" width="24" height="24" class="frame-background"/></g><g class="frame-children"><g data-testid="svg-rect"><rect width="18" height="18" x="3" style="fill: none;" ry="2" rx="2" y="3" class="fills"/><g stroke-linejoin="round" stroke-linecap="round" class="strokes"><rect rx="2" ry="2" x="3" y="3" width="18" height="18" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M8 12h8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M8 12h8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M12 8v8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M12 8v8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g></g></g></svg>
+        </div>
+        <div class="card">
+          <p>Étape 2: Envoi de la soumission</p>
+          <svg @click="showModal" width="24" xmlns="http://www.w3.org/2000/svg" height="24" fill="none"><g data-testid="plus-square"><g class="fills"><rect rx="0" ry="0" width="24" height="24" class="frame-background"/></g><g class="frame-children"><g data-testid="svg-rect"><rect width="18" height="18" x="3" style="fill: none;" ry="2" rx="2" y="3" class="fills"/><g stroke-linejoin="round" stroke-linecap="round" class="strokes"><rect rx="2" ry="2" x="3" y="3" width="18" height="18" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M8 12h8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M8 12h8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M12 8v8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M12 8v8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g></g></g></svg>
+        </div>
+        <div class="card">
+          <p>Étape 3: Développement</p>
+          <svg @click="showModal" width="24" xmlns="http://www.w3.org/2000/svg" height="24" fill="none"><g data-testid="plus-square"><g class="fills"><rect rx="0" ry="0" width="24" height="24" class="frame-background"/></g><g class="frame-children"><g data-testid="svg-rect"><rect width="18" height="18" x="3" style="fill: none;" ry="2" rx="2" y="3" class="fills"/><g stroke-linejoin="round" stroke-linecap="round" class="strokes"><rect rx="2" ry="2" x="3" y="3" width="18" height="18" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M8 12h8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M8 12h8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M12 8v8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M12 8v8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g></g></g></svg>
+        </div>
+        <div class="card">
+          <p>Étape 4: Derniers ajustements et livraison</p>
+          <svg @click="showModal" width="24" xmlns="http://www.w3.org/2000/svg" height="24" fill="none"><g data-testid="plus-square"><g class="fills"><rect rx="0" ry="0" width="24" height="24" class="frame-background"/></g><g class="frame-children"><g data-testid="svg-rect"><rect width="18" height="18" x="3" style="fill: none;" ry="2" rx="2" y="3" class="fills"/><g stroke-linejoin="round" stroke-linecap="round" class="strokes"><rect rx="2" ry="2" x="3" y="3" width="18" height="18" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M8 12h8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M8 12h8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M12 8v8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M12 8v8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g></g></g></svg>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="max-width-content">
+      <h1>
+        On travaille ensemble?
+      </h1>
+      <form class="contact-form">
+        <input required type="text" placeholder="Nom" />
+        <input required type="text" placeholder="Courriel" />
+        <textarea required placeholder="Message"></textarea>
+        <button type="submit" class="contact-form-submit__button">Soumettre</button>
+      </form>
+    </div>
+  </section>
+  <Modal ref="modalComponent"></Modal>
+</template>
+<style scoped lang="css">
+section {
+  min-height: calc(100vh - 80px);
+  background-color: var(--background);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.presentation-section-content {
+  display: flex;
+  align-items: flex-end;
+}
+
+.presentation-section-description {
+  max-width: 860px;
+}
+
+span {
+  color: var(--primary-light);
+}
+
+.cards-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.card {
+  width: 300px;
+  height: 225px;
+  border: 1px solid var(--gray);
+  border-radius: 5px;
+  padding: 30px;
+  margin: 10px 10px 10px 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: filter 0.3s;
+}
+
+.card:hover {
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+}
+
+svg {
+  align-self: flex-end;
+}
+
+.contact-form {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  max-width: 700px;
+  gap: 8px;
+}
+
+input {
+  height: 30px;
+  padding-left: 5px;
+}
+
+textarea {
+  height: 100px;
+  padding-left: 10px;
+  padding-top: 6px;
+}
+
+.contact-form-submit__button {
+  align-self: flex-end;
+}
+</style>

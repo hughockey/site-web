@@ -1,0 +1,12 @@
+:root {
+  --background: #212426;
+  --primary: #6e7890;
+  --primary-light: #aac1d8;
+  --secondary: #f1f5f9;
+  --accent: #0031ad;
+
+  --gray: #b1b2b5;
+
+  --font-title: 'Montserrat', sans-serif;
+  --font-text: 'Cutive Mono', monospace;
+}
