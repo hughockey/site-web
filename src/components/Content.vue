@@ -3,10 +3,13 @@ import { ref } from 'vue';
 import Modal from './Modal.vue';
 import emailjs from '@emailjs/browser'
 import { useToast, TYPE } from 'vue-toastification';
+import { cardsData } from '../data/cardsData.js'
+
 
 const toast = useToast()
 
 const contactForm = ref<HTMLFormElement>()
+let title = ref<string>('')
 let message = ref<string>('')
 const error = ref<boolean>(true)
 
@@ -39,18 +42,14 @@ const sendEmail = () => {
 }
 
 const modalComponent = ref<InstanceType<typeof Modal>>()
-const customText = ref<string>('')
+const clickedCardId = ref<string>('')
 
 const showModal = (e: MouseEvent) => {
-  console.log(e)
   const target = e.currentTarget as SVGElement;
-  customText.value = target.dataset.text || '';
-  console.log(customText.value)
-  if (customText.value === "rd") {
-    message.value = 'tatatatatatat'  
-  } else {
-    message.value = 'wuwuwuwuwuwuwu'
-  }
+  clickedCardId.value = target.dataset.text || '';
+  const cardInfos = cardsData.filter((card: any) => card.id === clickedCardId.value )
+  title.value = cardInfos[0].title
+  message.value = cardInfos[0].message
   modalComponent.value?.openDialog();    
 }
 
@@ -95,7 +94,7 @@ const showModal = (e: MouseEvent) => {
     <div class="max-content-width">
       <div>
         <h1>Comment ça se passe pour les projets?</h1>
-        <p>Tous les projets sont personnalisés selon vos besoin et votre réalité:</p>
+        <p>Tous les projets sont personnalisés selon vos besoins et votre réalité:</p>
       </div>
       <div class="cards-list">
         <div class="card">
@@ -131,7 +130,12 @@ const showModal = (e: MouseEvent) => {
     </div>
   </section>
   <Modal ref="modalComponent">
-    <p>{{ message }}</p>
+    <template #title>
+      <h2>{{ title }}</h2>
+    </template>
+    <template #content>
+      <p class="modal">{{ message }}</p>
+    </template>
   </Modal>
 </template>
 <style scoped lang="css">
