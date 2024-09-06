@@ -26,19 +26,19 @@ export const cardsData = [
     id: "step1",
     title: "Étape 1: Rencontre initiale",
     message:
-      "Durant cette rencontre d'environ 1h, on prend le temps de regarder les besoins et les délais. ",
+      "Durant cette rencontre d'environ 1h, on prend le temps de regarder les besoins et les délais ainsi que le niveau de service à fournir de mon côté. ",
   },
   {
     id: "step2",
     title: "Étape 2: Envoi de la soumission",
     message:
-      "Après s'être mis d'accord sur les besoins, les délais et les conditions, je vous soumettrai une soumission qui décrit les travaux à faire avec le prix et le nombre d'heures requis.",
+      "Après s'être mis d'accord sur les besoins, les délais et les conditions, je vous soumettrai une soumission qui décrit les travaux à faire ainsi que le prix et le nombre d'heures requis. À noter que, si je dois fournir le service de designer pour les maquettes du produits, il y aura une étape de plus avant le développement qui sera l'approbation des maquettes.",
   },
   {
     id: "step3",
     title: "Étape 3: Développement",
     message:
-      "Sur acception de la soumission et des conditions, le développement s'en suivra et un suivi avec vous durant l'avancement du projet sera possible selon votre préférence.",
+      "Sur acceptation de la soumission et des conditions, le développement s'en suivra et un suivi avec vous durant l'avancement du projet sera possible selon votre préférence.",
   },
   {
     id: "step4",
