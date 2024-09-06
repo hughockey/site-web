@@ -176,6 +176,8 @@ section {
   margin: 0 auto;
   text-align: center;
   margin-bottom: 165px;
+  display: grid;
+  place-items: center;
 }
 
 span {
@@ -225,9 +227,9 @@ svg {
   margin-top: 50px;
   display: flex;
   flex-direction: column;
-  width: 650px;
+  width: 100%;
   gap: 8px;
-  min-width: 300px;
+  flex-shrink: 1;
 }
 
 input {

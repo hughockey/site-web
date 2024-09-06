@@ -3,9 +3,9 @@
 </script>
 <template>
   <div class="header-container">
-    <div class="left-header-content" style="color:white">
+    <!-- <div class="left-header-content" style="color:white">
       Logo
-    </div>
+    </div> -->
     <div class="right-header-content">
       <div class="socials-contact">
         <a>
@@ -29,7 +29,8 @@
   height: 80px;
   background-color: var(--background);
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  justify-content: end;
   align-items: center;
 }
 
