@@ -26,7 +26,7 @@ export const cardsData = [
     id: "step1",
     title: "Étape 1: Rencontre initiale",
     message:
-      "Durant cette rencontre d'environ 1h, on prend le temps de regarder les besoins et les délais ainsi que le niveau de service à fournir de mon côté. ",
+      "Durant cette rencontre d'environ 1h, on prend le temps de regarder les besoins et les délais ainsi que le niveau de service à fournir de mon côté. Ajouté au développement, je peux fournir le service de designer pour les maquettes, l'achat du nom de domaine de votre choix ainsi que l'hébergement de votre produit.",
   },
   {
     id: "step2",
@@ -42,8 +42,8 @@ export const cardsData = [
   },
   {
     id: "step4",
-    title: "Livraison",
+    title: "Étape 4: Livraison",
     message:
-      "Suite à la fin du développement, une présentation finale sera faite du produit final et certains ajustements pourront être apportés au besoin avant le lancement.",
+      "Suite à la fin du développement, une présentation finale sera faite du produit et certains ajustements pourront être apportés au besoin avant le lancement.",
   },
 ];
