@@ -1,10 +1,28 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import Modal from './Modal.vue';
 import emailjs from '@emailjs/browser'
 import { useToast, TYPE } from 'vue-toastification';
 import { cardsData } from '../data/cardsData.js'
 
+const sections = ref<NodeListOf<HTMLElement> | null>(null)
+onMounted(() => {
+  sections.value = document.querySelectorAll('.fade-animation') as NodeListOf<HTMLElement>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    })
+  }, {
+    threshold: 0.5
+  })
+
+  sections.value.forEach((section) => {
+    observer.observe(section); // Observe each section
+  });
+})
 
 const toast = useToast()
 
@@ -55,7 +73,7 @@ const showModal = (e: MouseEvent) => {
 
 </script>
 <template>
-  <section class="presentation-section">
+  <section class="presentation-section fade-animation">
     <div class="presentation-section-content max-content-width">
       <div class="presentation-section-description">
         <h1>Salut, moi c'est <span>Hugo</span>.</h1>
@@ -64,69 +82,71 @@ const showModal = (e: MouseEvent) => {
       <img alt="cartoon représentant Hugo" src="../assets/images/Avatar.png"  />
     </div>
   </section>
-  <section>
+  <section class="fade-animation">
     <div class="max-content-width">
       <div>
         <h1>Qu'est-ce j'offre?</h1>
         <p>J'offre mon expertise pour vous accompagner dans la réalisation de vos projets comme:</p>
       </div>
-      <div class="cards-list">
-        <div class="card">
-          <p>La création d'applications web personnalisées</p>
-          <svg @click="showModal($event)" data-text="appWeb" width="24" xmlns="http://www.w3.org/2000/svg" height="24" fill="none"><g data-testid="plus-square"><g class="fills"><rect rx="0" ry="0" width="24" height="24" class="frame-background"/></g><g class="frame-children"><g data-testid="svg-rect"><rect width="18" height="18" x="3" style="fill: none;" ry="2" rx="2" y="3" class="fills"/><g stroke-linejoin="round" stroke-linecap="round" class="strokes"><rect rx="2" ry="2" x="3" y="3" width="18" height="18" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M8 12h8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M8 12h8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M12 8v8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M12 8v8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g></g></g></svg>
-        </div>
-        <div class="card">
-          <p>La création de votre site web</p>
-          <svg @click="showModal($event)" data-text="siteWeb" width="24" xmlns="http://www.w3.org/2000/svg" height="24" fill="none"><g data-testid="plus-square"><g class="fills"><rect rx="0" ry="0" width="24" height="24" class="frame-background"/></g><g class="frame-children"><g data-testid="svg-rect"><rect width="18" height="18" x="3" style="fill: none;" ry="2" rx="2" y="3" class="fills"/><g stroke-linejoin="round" stroke-linecap="round" class="strokes"><rect rx="2" ry="2" x="3" y="3" width="18" height="18" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M8 12h8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M8 12h8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M12 8v8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M12 8v8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g></g></g></svg>
-        </div>
-        <!-- <div class="card">
-          <p>La création de commerces en ligne</p>
-          <svg @click="showModal($event)" data-text="ecomm" width="24" xmlns="http://www.w3.org/2000/svg" height="24" fill="none"><g data-testid="plus-square"><g class="fills"><rect rx="0" ry="0" width="24" height="24" class="frame-background"/></g><g class="frame-children"><g data-testid="svg-rect"><rect width="18" height="18" x="3" style="fill: none;" ry="2" rx="2" y="3" class="fills"/><g stroke-linejoin="round" stroke-linecap="round" class="strokes"><rect rx="2" ry="2" x="3" y="3" width="18" height="18" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M8 12h8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M8 12h8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M12 8v8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M12 8v8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g></g></g></svg>
-        </div> -->
-        <div class="card">
-          <p>Appui à la R&D d'une entreprise</p>
-          <svg @click="showModal($event)" data-text="rd" width="24" xmlns="http://www.w3.org/2000/svg" height="24" fill="none"><g data-testid="plus-square"><g class="fills"><rect rx="0" ry="0" width="24" height="24" class="frame-background"/></g><g class="frame-children"><g data-testid="svg-rect"><rect width="18" height="18" x="3" style="fill: none;" ry="2" rx="2" y="3" class="fills"/><g stroke-linejoin="round" stroke-linecap="round" class="strokes"><rect rx="2" ry="2" x="3" y="3" width="18" height="18" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M8 12h8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M8 12h8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M12 8v8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M12 8v8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g></g></g></svg>
+      <div class="cards-list-container">
+        <div class="cards-list three-boxes-line">
+          <div class="card">
+            <p>La création d'applications web personnalisées</p>
+            <svg @click="showModal($event)" data-text="appWeb" width="24" xmlns="http://www.w3.org/2000/svg" height="24" fill="none"><g data-testid="plus-square"><g class="fills"><rect rx="0" ry="0" width="24" height="24" class="frame-background"/></g><g class="frame-children"><g data-testid="svg-rect"><rect width="18" height="18" x="3" style="fill: none;" ry="2" rx="2" y="3" class="fills"/><g stroke-linejoin="round" stroke-linecap="round" class="strokes"><rect rx="2" ry="2" x="3" y="3" width="18" height="18" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M8 12h8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M8 12h8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M12 8v8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M12 8v8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g></g></g></svg>
+          </div>
+          <div class="card">
+            <p>La création de votre site web</p>
+            <svg @click="showModal($event)" data-text="siteWeb" width="24" xmlns="http://www.w3.org/2000/svg" height="24" fill="none"><g data-testid="plus-square"><g class="fills"><rect rx="0" ry="0" width="24" height="24" class="frame-background"/></g><g class="frame-children"><g data-testid="svg-rect"><rect width="18" height="18" x="3" style="fill: none;" ry="2" rx="2" y="3" class="fills"/><g stroke-linejoin="round" stroke-linecap="round" class="strokes"><rect rx="2" ry="2" x="3" y="3" width="18" height="18" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M8 12h8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M8 12h8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M12 8v8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M12 8v8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g></g></g></svg>
+          </div>
+          <div class="card">
+            <p>Appui à la R&D d'une entreprise</p>
+            <svg @click="showModal($event)" data-text="rd" width="24" xmlns="http://www.w3.org/2000/svg" height="24" fill="none"><g data-testid="plus-square"><g class="fills"><rect rx="0" ry="0" width="24" height="24" class="frame-background"/></g><g class="frame-children"><g data-testid="svg-rect"><rect width="18" height="18" x="3" style="fill: none;" ry="2" rx="2" y="3" class="fills"/><g stroke-linejoin="round" stroke-linecap="round" class="strokes"><rect rx="2" ry="2" x="3" y="3" width="18" height="18" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M8 12h8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M8 12h8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M12 8v8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M12 8v8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g></g></g></svg>
+          </div>
         </div>
       </div>
     </div>
   </section>
-  <section>
+  <section class="fade-animation">
     <div class="max-content-width">
       <div>
         <h1>Comment ça se passe pour les projets?</h1>
         <p>Tous les projets sont personnalisés selon vos besoins et votre réalité:</p>
       </div>
-      <div class="cards-list">
-        <div class="card">
-          <p>Étape 1: Rencontre initiale</p>
-          <svg @click="showModal($event)" data-text="step1" width="24" xmlns="http://www.w3.org/2000/svg" height="24" fill="none"><g data-testid="plus-square"><g class="fills"><rect rx="0" ry="0" width="24" height="24" class="frame-background"/></g><g class="frame-children"><g data-testid="svg-rect"><rect width="18" height="18" x="3" style="fill: none;" ry="2" rx="2" y="3" class="fills"/><g stroke-linejoin="round" stroke-linecap="round" class="strokes"><rect rx="2" ry="2" x="3" y="3" width="18" height="18" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M8 12h8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M8 12h8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M12 8v8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M12 8v8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g></g></g></svg>
-        </div>
-        <div class="card">
-          <p>Étape 2: Envoi de la soumission</p>
-          <svg @click="showModal($event)" data-text="step2" width="24" xmlns="http://www.w3.org/2000/svg" height="24" fill="none"><g data-testid="plus-square"><g class="fills"><rect rx="0" ry="0" width="24" height="24" class="frame-background"/></g><g class="frame-children"><g data-testid="svg-rect"><rect width="18" height="18" x="3" style="fill: none;" ry="2" rx="2" y="3" class="fills"/><g stroke-linejoin="round" stroke-linecap="round" class="strokes"><rect rx="2" ry="2" x="3" y="3" width="18" height="18" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M8 12h8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M8 12h8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M12 8v8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M12 8v8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g></g></g></svg>
-        </div>
-        <div class="card">
-          <p>Étape 3: Développement</p>
-          <svg @click="showModal($event)" data-text="step3" width="24" xmlns="http://www.w3.org/2000/svg" height="24" fill="none"><g data-testid="plus-square"><g class="fills"><rect rx="0" ry="0" width="24" height="24" class="frame-background"/></g><g class="frame-children"><g data-testid="svg-rect"><rect width="18" height="18" x="3" style="fill: none;" ry="2" rx="2" y="3" class="fills"/><g stroke-linejoin="round" stroke-linecap="round" class="strokes"><rect rx="2" ry="2" x="3" y="3" width="18" height="18" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M8 12h8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M8 12h8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M12 8v8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M12 8v8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g></g></g></svg>
-        </div>
-        <div class="card">
-          <p>Étape 4: Derniers ajustements et livraison</p>
-          <svg @click="showModal($event)" data-text="step4" width="24" xmlns="http://www.w3.org/2000/svg" height="24" fill="none"><g data-testid="plus-square"><g class="fills"><rect rx="0" ry="0" width="24" height="24" class="frame-background"/></g><g class="frame-children"><g data-testid="svg-rect"><rect width="18" height="18" x="3" style="fill: none;" ry="2" rx="2" y="3" class="fills"/><g stroke-linejoin="round" stroke-linecap="round" class="strokes"><rect rx="2" ry="2" x="3" y="3" width="18" height="18" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M8 12h8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M8 12h8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M12 8v8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M12 8v8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g></g></g></svg>
+      <div class="cards-list-container">
+        <div class="cards-list">
+          <div class="card">
+            <p>Étape 1: Rencontre initiale</p>
+            <svg @click="showModal($event)" data-text="step1" width="24" xmlns="http://www.w3.org/2000/svg" height="24" fill="none"><g data-testid="plus-square"><g class="fills"><rect rx="0" ry="0" width="24" height="24" class="frame-background"/></g><g class="frame-children"><g data-testid="svg-rect"><rect width="18" height="18" x="3" style="fill: none;" ry="2" rx="2" y="3" class="fills"/><g stroke-linejoin="round" stroke-linecap="round" class="strokes"><rect rx="2" ry="2" x="3" y="3" width="18" height="18" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M8 12h8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M8 12h8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M12 8v8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M12 8v8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g></g></g></svg>
+          </div>
+          <div class="card">
+            <p>Étape 2: Envoi de la soumission</p>
+            <svg @click="showModal($event)" data-text="step2" width="24" xmlns="http://www.w3.org/2000/svg" height="24" fill="none"><g data-testid="plus-square"><g class="fills"><rect rx="0" ry="0" width="24" height="24" class="frame-background"/></g><g class="frame-children"><g data-testid="svg-rect"><rect width="18" height="18" x="3" style="fill: none;" ry="2" rx="2" y="3" class="fills"/><g stroke-linejoin="round" stroke-linecap="round" class="strokes"><rect rx="2" ry="2" x="3" y="3" width="18" height="18" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M8 12h8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M8 12h8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M12 8v8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M12 8v8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g></g></g></svg>
+          </div>
+          <div class="card">
+            <p>Étape 3: Développement</p>
+            <svg @click="showModal($event)" data-text="step3" width="24" xmlns="http://www.w3.org/2000/svg" height="24" fill="none"><g data-testid="plus-square"><g class="fills"><rect rx="0" ry="0" width="24" height="24" class="frame-background"/></g><g class="frame-children"><g data-testid="svg-rect"><rect width="18" height="18" x="3" style="fill: none;" ry="2" rx="2" y="3" class="fills"/><g stroke-linejoin="round" stroke-linecap="round" class="strokes"><rect rx="2" ry="2" x="3" y="3" width="18" height="18" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M8 12h8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M8 12h8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M12 8v8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M12 8v8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g></g></g></svg>
+          </div>
+          <div class="card">
+            <p>Étape 4: Derniers ajustements et livraison</p>
+            <svg @click="showModal($event)" data-text="step4" width="24" xmlns="http://www.w3.org/2000/svg" height="24" fill="none"><g data-testid="plus-square"><g class="fills"><rect rx="0" ry="0" width="24" height="24" class="frame-background"/></g><g class="frame-children"><g data-testid="svg-rect"><rect width="18" height="18" x="3" style="fill: none;" ry="2" rx="2" y="3" class="fills"/><g stroke-linejoin="round" stroke-linecap="round" class="strokes"><rect rx="2" ry="2" x="3" y="3" width="18" height="18" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M8 12h8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M8 12h8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M12 8v8" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M12 8v8" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g></g></g></svg>
+          </div>
         </div>
       </div>
     </div>
   </section>
-  <section>
-    <div class="max-width-content">
+  <section class="fade-animation" ref="contact-section">
+    <div class="max-content-width">
       <h1>
         On travaille ensemble?
       </h1>
-      <form class="contact-form" ref="contactForm" @submit.prevent="sendEmail">
-        <input required type="text" placeholder="Nom" name="contact_name" @blur="validateField($event)"/>
-        <input required type="email" placeholder="Courriel" name="contact_email" @blur="validateField($event)"/>
-        <textarea required placeholder="Message" name="message" @blur="validateField($event)"></textarea>
-        <button type="submit" class="contact-form-submit__button">Soumettre</button>
-      </form>
+      <div class="contact-form-container">
+        <form class="contact-form" ref="contactForm" @submit.prevent="sendEmail">
+          <input required type="text" placeholder="Nom" name="contact_name" @blur="validateField($event)"/>
+          <input required type="email" placeholder="Courriel" name="contact_email" @blur="validateField($event)"/>
+          <textarea required placeholder="Message" name="message" @blur="validateField($event)"></textarea>
+          <button type="submit" class="contact-form-submit__button">Soumettre</button>
+        </form>
+      </div>
     </div>
   </section>
   <Modal ref="modalComponent">
@@ -139,35 +159,47 @@ const showModal = (e: MouseEvent) => {
   </Modal>
 </template>
 <style scoped lang="css">
-section {
-  min-height: calc(100vh - 80px);
-  background-color: var(--background);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.presentation-section-content {
-  display: flex;
-  align-items: flex-end;
+.fade-animation {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-.presentation-section-description {
-  max-width: 860px;
+.fade-animation.visible {
+  opacity: 1;
+  transform: translateY(0)
+}
+
+section {
+  min-height: calc(100vh - 80px);
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  margin-bottom: 165px;
+  display: grid;
+  place-items: center;
 }
 
 span {
   color: var(--primary-light);
 }
 
+.cards-list-container {
+  display: flex;
+  justify-content: center;
+}
+
 .cards-list {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  max-width: 800px;
+  justify-content: center;
 }
 
 .card {
-  width: 300px;
-  height: 225px;
+  width: 220px;
+  height: 200px;
   border: 1px solid var(--gray);
   border-radius: 5px;
   padding: 30px;
@@ -186,12 +218,18 @@ svg {
   align-self: flex-end;
 }
 
+.contact-form-container {
+  display: flex;
+  justify-content: center;
+}
+
 .contact-form {
   margin-top: 50px;
   display: flex;
   flex-direction: column;
-  max-width: 700px;
+  width: 100%;
   gap: 8px;
+  flex-shrink: 1;
 }
 
 input {
@@ -207,5 +245,9 @@ textarea {
 
 .contact-form-submit__button {
   align-self: flex-end;
+}
+
+.three-boxes-line {
+  max-width: 900px;
 }
 </style>
