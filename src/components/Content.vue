@@ -55,6 +55,7 @@ const sendEmail = () => {
       toast.error('Un problème est survenu, veuillez réessayer plus tard...', {
         type: TYPE.ERROR
       })
+      console.log(error)
     })
   }
 }
