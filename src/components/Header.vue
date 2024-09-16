@@ -3,9 +3,6 @@
 </script>
 <template>
   <div class="header-container">
-    <!-- <div class="left-header-content" style="color:white">
-      Logo
-    </div> -->
     <div class="right-header-content">
       <div class="socials-contact">
         <!-- <a target="_blank">

@@ -1,0 +1,42 @@
+[
+  {
+    "nom": "Portail Alfred",
+    "stack": ["Vuejs", "TanstackQuery", "Tailwind", "Typescript" ],
+    "captureEcran": "./src/assets/images/dashboard.png",
+    "compagnie": "Alfred technologies",
+    "lien": "",
+    "description": "Application de visualisation de données pour la prise de décision à l'aide de graphiques et de tuiles. "
+  },
+  {
+    "nom": "Inventaire",
+    "stack": ["Vuejs", "Nuxt", "Vuex", "Css", "Javascript"],
+    "captureEcran": "./src/assets/images/inventaire.png",
+    "compagnie": "Alfred technologies",
+    "lien": "",
+    "description": "Application de gestion de cave à vins/spiritueux dans le domaine de la restauration."
+  },
+  {
+    "nom": "Menu",
+    "stack": ["Vuejs", "Pinia", "Css", "Typescript"],
+    "captureEcran": "./src/assets/images/menu.png",
+    "compagnie": "Alfred technologies",
+    "lien": "",
+    "description": "Menu permettant de choisir et commander une bouteille de vin dans un restaurant."
+  },
+  {
+    "nom": "Octo",
+    "stack": ["Angular", "RxJs", "OpenLayers", "Css", "Typescript"],
+    "captureEcran": "./src/assets/images/octo.png",
+    "compagnie": "Observatoire global du St-Laurent",
+    "lien": "https://ogsl.ca/octo/?mapextent=-7347086.392356057,6621293.722740165,5",
+    "description": "Outil permettant d'aider les scientifique et la population à visualiser des données récoltées."
+  },
+  {
+    "nom": "Panier valérienois",
+    "stack": ["Vuejs", "Vuex", "Css", "Javascript"],
+    "captureEcran": "./src/assets/images/panier.png",
+    "compagnie": "Conception webmedia",
+    "lien": "https://municipalite.saint-valerien.qc.ca/app/paniervalerinois/",
+    "description": "Application style marché public permettant la réservation de denrées locales entre producteurs et consommateurs."
+  }
+]

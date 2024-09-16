@@ -160,16 +160,7 @@ const showModal = (e: MouseEvent) => {
   </Modal>
 </template>
 <style scoped lang="css">
-.fade-animation {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
 
-.fade-animation.visible {
-  opacity: 1;
-  transform: translateY(0)
-}
 
 section {
   min-height: calc(100vh - 80px);

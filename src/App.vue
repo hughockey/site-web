@@ -3,6 +3,7 @@ import Header from './components/Header.vue';
 import Content from './components/Content.vue';
 import Footer from './components/Footer.vue';
 import { ref } from 'vue';
+import Projects from './components/Projects.vue';
 
 const content = ref<InstanceType<typeof Content> | null>(null)
 const scrollToSection = () => {
@@ -17,6 +18,7 @@ const scrollToSection = () => {
   <Header @scroll-to-section="scrollToSection"></Header>
   <Content ref="content"></Content>
   <Footer></Footer>
+  <!-- <Projects></Projects> -->
 </template>
 
 <style scoped>
