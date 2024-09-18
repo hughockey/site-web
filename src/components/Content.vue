@@ -227,12 +227,22 @@ svg {
 input {
   height: 30px;
   padding-left: 5px;
+  border-radius: 5px;
+}
+
+input::placeholder {
+  font-family: var(--font-text);
 }
 
 textarea {
   height: 100px;
   padding-left: 10px;
   padding-top: 6px;
+  border-radius: 5px;
+}
+
+textarea::placeholder {
+  font-family: var(--font-text);
 }
 
 .contact-form-submit__button {

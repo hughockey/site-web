@@ -8,6 +8,9 @@
 </script>
 <template>
   <div class="header-container">
+    <div class="left-header-content">
+      <a class="projects-link" href="/projects" @click.prevent="goTo('/projects')">Projets</a>
+    </div>
     <div class="right-header-content">
       <div class="socials-contact">
         <!-- <a target="_blank">
@@ -19,7 +22,6 @@
         <a href="https://github.com/hughockey" target="_blank">
           <svg width="24" xmlns="http://www.w3.org/2000/svg" height="24.615" fill="none"><g data-testid="github"><g class="fills"><rect rx="0" ry="0" width="24" height="24" class="frame-background"/></g><g class="frame-children"><g data-testid="svg-path"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.402 5.402 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.402 5.402 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" style="fill: none; stroke-width: 2; stroke: rgb(213, 213, 213); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="M9 18c-4.51 2-5-2-7-2" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M9 18c-4.51 2-5-2-7-2" style="fill: none; stroke-width: 2; stroke: rgb(213, 213, 213); stroke-opacity: 1;" class="stroke-shape"/></g></g></g></g></svg>
         </a>
-        <a href="/projects" @click.prevent="goTo('/projects')">Projets</a>
         <button type="button" class="contact-button" @click="$emit('scroll-to-section', 'contact-section')">Contactez-moi</button>
       </div>
     </div>
@@ -32,13 +34,25 @@
   height: 80px;
   background-color: var(--background);
   display: flex;
-  /* justify-content: space-between; */
-  justify-content: end;
+  justify-content: space-between;
   align-items: center;
 }
 
 .left-header-content {
   padding-left: 25px;
+}
+
+.projects-link {
+  font-size: 1.25rem;
+  text-decoration: underline 0.15rem rgba(177,178,181,0);
+  font-family: var(--font-title);
+  color: var(--gray);
+  cursor: pointer;
+  transition: text-decoration 300ms ease-in;
+}
+
+.projects-link:hover {
+  text-decoration: underline 0.15rem rgba(177,178,181,1); /* equivalent to var(--gray) */
 }
 
 .socials-contact {
