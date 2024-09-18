@@ -1,11 +1,16 @@
 <script setup lang="ts">
-  const emit = defineEmits<{ (e: 'scroll-to-section', sectionRef: string): void }>();
+  const emit = defineEmits<{ (e: 'scroll-to-section', sectionRef: string): void,  (e: 'navigate', path: string): void }>();
+
+  const goTo = (path: string) => {
+    emit('navigate', path); // Emit navigate event with the desired path
+  };
+
 </script>
 <template>
   <div class="header-container">
-    <!-- <div class="left-header-content" style="color:white">
-      Logo
-    </div> -->
+    <div class="left-header-content">
+      <a class="projects-link" href="/projects" @click.prevent="goTo('/projects')">Projets</a>
+    </div>
     <div class="right-header-content">
       <div class="socials-contact">
         <!-- <a target="_blank">
@@ -29,13 +34,25 @@
   height: 80px;
   background-color: var(--background);
   display: flex;
-  /* justify-content: space-between; */
-  justify-content: end;
+  justify-content: space-between;
   align-items: center;
 }
 
 .left-header-content {
   padding-left: 25px;
+}
+
+.projects-link {
+  font-size: 1.25rem;
+  text-decoration: underline 0.15rem rgba(177,178,181,0);
+  font-family: var(--font-title);
+  color: var(--gray);
+  cursor: pointer;
+  transition: text-decoration 300ms ease-in;
+}
+
+.projects-link:hover {
+  text-decoration: underline 0.15rem rgba(177,178,181,1); /* equivalent to var(--gray) */
 }
 
 .socials-contact {
