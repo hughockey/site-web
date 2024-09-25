@@ -4,6 +4,32 @@ import Tag from "./Tag.vue";
 import projets from "../data/projets.json";
 
 const items = ref(projets);
+
+items.value.forEach(item => {
+  switch (item.nom) {
+    case "Portail Alfred":
+      item.captureEcran = new URL('../assets/images/dashboard.png', import.meta.url).href;
+      break;
+    case "Inventaire":
+      item.captureEcran = new URL('../assets/images/inventaire.png', import.meta.url).href;
+      break;
+    case "Menu":
+      item.captureEcran = new URL('../assets/images/menu.png', import.meta.url).href;
+      break;
+    case "Octo":
+      item.captureEcran = new URL('../assets/images/octo.png', import.meta.url).href;
+      break;
+    case "Panier valérienois":
+      item.captureEcran = new URL('../assets/images/panier.png', import.meta.url).href;
+      break;
+    case "Mon site web":
+      item.captureEcran = new URL('../assets/images/mon-site.png', import.meta.url).href;
+      break;
+    default:
+      item.captureEcran = ''; // or a default image path
+  }
+});
+
 </script>
 <template>
   <section>

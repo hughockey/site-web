@@ -2,7 +2,6 @@
   {
     "nom": "Portail Alfred",
     "stack": ["Vuejs", "TanstackQuery", "Tailwind", "Typescript" ],
-    "captureEcran": "./src/assets/images/dashboard.png",
     "compagnie": "Alfred technologies",
     "lien": "",
     "description": "Application de visualisation de données pour la prise de décision à l'aide de graphiques et de tuiles. J'ai participé au développement d'une partie du visuel des tuiles et des graphiques à travers un filtre de temps."
@@ -10,7 +9,6 @@
   {
     "nom": "Inventaire",
     "stack": ["Vuejs", "Nuxt", "Vuex", "Css", "Javascript"],
-    "captureEcran": "./src/assets/images/inventaire.png",
     "compagnie": "Alfred technologies",
     "lien": "",
     "description": "Application de gestion de cave à vins/spiritueux dans le domaine de la restauration. Participation au développement sur plusieurs fonctionnalités et intégrations d'outils importantes dont la réquisition, permettant de déplacer des bouteilles de caves vers celliers, la mise en place de tests d'intégrations avec Jest et l'intégration d'une app tierce pour gérer des 'feature flags'"
@@ -18,7 +16,6 @@
   {
     "nom": "Menu",
     "stack": ["Vuejs", "Pinia", "Css", "Typescript"],
-    "captureEcran": "./src/assets/images/menu.png",
     "compagnie": "Alfred technologies",
     "lien": "",
     "description": "Menu permettant de choisir et commander une bouteille de vin dans un restaurant. J'ai participé à la refonte de l'interface utilisateur ainsi qu'à l'ajout de la fonctionnalité des vins au verre qui permettait à nos client de vendre des verre de vin séparemment des bouteilles."
@@ -29,20 +26,18 @@
     "captureEcran": "./src/assets/images/octo.png",
     "compagnie": "Observatoire global du St-Laurent",
     "lien": "https://ogsl.ca/octo/?mapextent=-7347086.392356057,6621293.722740165,5",
-    "description": "Outil permettant d'aider les scientifiques et la population à visualiser des données récoltées. J'ai apporté de nouvelles idées pour l'interface utilisateur, fais des petits wireframes avec Adobe XD, participé à la correction de bugs et ajouter quelques fonctionnalités notamment."
+    "description": "Outil permettant d'aider les scientifiques et la population à visualiser des données récoltées. J'ai apporté de nouvelles idées pour l'interface utilisateur, fais des petits wireframes avec Adobe XD, participé à la correction de bugs et ajouté quelques fonctionnalités notamment."
   },
   {
     "nom": "Panier valérienois",
     "stack": ["Vuejs", "Vuex", "Css", "Javascript"],
-    "captureEcran": "./src/assets/images/panier.png",
     "compagnie": "Conception webmedia",
     "lien": "https://municipalite.saint-valerien.qc.ca/app/paniervalerinois/",
-    "description": "Application style marché public permettant la réservation de denrées locales entre producteurs et consommateurs. Première applications développée par moi de A à Z, j'ai eu à utiliser Vuejs et Vuex qui étaient des outils nouveaux à ce moment-là pour moi. Première mise en place d'une application style e-commerce en partant d'une page blanche."
+    "description": "Application style marché public permettant la réservation de denrées locales entre producteurs et consommateurs. Première application développée par moi de A à Z, j'ai eu à utiliser Vuejs et Vuex qui étaient des outils nouveaux à ce moment-là pour moi. Première mise en place d'une application style e-commerce en partant d'une page blanche."
   },
   {
     "nom": "Mon site web",
     "stack": ["Vuejs", "Css", "Typescript"],
-    "captureEcran": "./src/assets/images/mon-site.png",
     "compagnie": "Hugo Lemieux",
     "lien": "",
     "description": "Mon propre site web, développé avec Vuejs et designer de A à Z par moi-même dans une application nommée PenPot (équivalent à Figma). J'ai eu à sortir de ma zone de confort pour sortir le côté plus artistique en moi, faire plusieurs itérations et apprendre à utiliser un outil de design."
