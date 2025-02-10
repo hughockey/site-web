@@ -21,6 +21,20 @@
     "description": "Menu permettant de choisir et commander une bouteille de vin dans un restaurant. J'ai participé à la refonte de l'interface utilisateur ainsi qu'à l'ajout de la fonctionnalité des vins au verre qui permettait à nos client de vendre des verre de vin séparemment des bouteilles."
   },
   {
+    "nom": "Portail Equipe Carrière",
+    "stack": ["React", "NextJs" , "Css", "Typescript", "Strapi"],
+    "compagnie": "Neveu & Co",
+    "lien": "",
+    "description": "Portail pour courtier immobilier permettant de voir la liste des maisons à son actif sur Centris avec système d'archivage des maisons, de recherche par courtier et un tri par date. Le portail peut aussi généré des rapports pour chaque maison avec les informations de Google Analytics. On y trouve aussi un système de gestion des usagers de la plateforme avec Strapi."
+  },
+  {
+    "nom": "GamerZ",
+    "stack": ["Angular", "Css", "Javascript", "MongoDB", "Express"],
+    "compagnie": "Conception WebMedia",
+    "lien": "",
+    "description": "Réseau social pour les gamers. J'ai participé à la refonte du système de websockets, à la refonte du UI du chat, au changement de couleurs dynamiques dans le profil et j'ai aussi fait du refactor dans le backend."
+  },
+  {
     "nom": "Octo",
     "stack": ["Angular", "RxJs", "OpenLayers", "Css", "Typescript"],
     "captureEcran": "./src/assets/images/octo.png",
@@ -29,11 +43,11 @@
     "description": "Outil permettant d'aider les scientifiques et la population à visualiser des données récoltées. J'ai apporté de nouvelles idées pour l'interface utilisateur, fais des petits wireframes avec Adobe XD, participé à la correction de bugs et ajouté quelques fonctionnalités notamment."
   },
   {
-    "nom": "Panier valérienois",
-    "stack": ["Vuejs", "Vuex", "Css", "Javascript"],
-    "compagnie": "Conception webmedia",
-    "lien": "https://municipalite.saint-valerien.qc.ca/app/paniervalerinois/",
-    "description": "Application style marché public permettant la réservation de denrées locales entre producteurs et consommateurs. Première application développée par moi de A à Z, j'ai eu à utiliser Vuejs et Vuex qui étaient des outils nouveaux à ce moment-là pour moi. Première mise en place d'une application style e-commerce en partant d'une page blanche."
+    "nom": "Site web Joe Rullier",
+    "stack": ["WordPress", "Elementor", "Css", "Javascript"],
+    "compagnie": "Neveu & Co",
+    "lien": "https://joerullier.neveu.io/",
+    "description": "Site web sur WordPress construit avec Elementor pour un courtier immobilier. J’ai développé l’ensemble des pages du site web, partant de la maquette Figma, en assurant une navigation fluide et un design responsive."
   },
   {
     "nom": "Mon site web",
@@ -42,4 +56,5 @@
     "lien": "",
     "description": "Mon propre site web, développé avec Vuejs et designer de A à Z par moi-même dans une application nommée PenPot (équivalent à Figma). J'ai eu à sortir de ma zone de confort pour sortir le côté plus artistique en moi, faire plusieurs itérations et apprendre à utiliser un outil de design."
   }
+
 ]

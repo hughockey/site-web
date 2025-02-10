@@ -57,6 +57,12 @@ p.modal {
   font-size: 1rem;
 }
 
+a {
+  font-family: var(--font-text);
+  color: var(--primary-light);
+  text-decoration: none;
+  font-size: 1.15rem;
+}
 .max-content-width {
   max-width: 1200px;
 }

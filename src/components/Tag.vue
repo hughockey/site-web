@@ -18,6 +18,13 @@ const tagColor: MapType = {
   Nuxt: "#00C58E",
   TanstackQuery: "#FF4154",
   Tailwind: "#06B6D4",
+  React: "#61DAFB",
+  MongoDB: "#47A248",
+  Strapi: "#8A3FFC",
+  NextJs: "#828282",
+  WordPress: "#21759B",
+  Elementor: "#92003B",
+  Express: "#505050"
 };
 
 type TagProps = {

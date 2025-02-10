@@ -29,7 +29,7 @@ defineExpose({
 <style scoped lang="css">
 dialog {
   background-color: var(--background);
-  height: 300px;
+  height: 400px;
   width: 50%;
   border-radius: 5px;
 }
@@ -41,5 +41,6 @@ dialog::backdrop {
 
 .close-icon {
   text-align: end;
+  margin-bottom: 25px;
 }
 </style>
