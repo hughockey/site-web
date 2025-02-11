@@ -93,6 +93,7 @@ h3 {
 
 img {
   width: 450px;
+  cursor: pointer;
 }
 
 .modal-img {

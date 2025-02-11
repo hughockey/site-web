@@ -48,7 +48,7 @@ h3 {
 p {
   font-family: var(--font-text);
   color: var(--secondary);
-  font-size: 1.625rem;
+  font-size: 1.250rem;
 }
 
 p.modal {

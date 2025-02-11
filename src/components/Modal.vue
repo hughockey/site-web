@@ -41,6 +41,7 @@ dialog {
 
 .project-size {
   height:80%;
+  width: 80%;
 }
 
 dialog::backdrop {
@@ -56,6 +57,7 @@ dialog::backdrop {
 @media (max-width: 1024px) {
   .project-size {
     height: fit-content;
+    width: auto;
   }
 }
 </style>
