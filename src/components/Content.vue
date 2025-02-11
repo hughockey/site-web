@@ -150,7 +150,7 @@ const showModal = (e: MouseEvent) => {
       </div>
     </div>
   </section>
-  <Modal ref="modalComponent">
+  <Modal page="home" ref="modalComponent">
     <template #title>
       <h2>{{ title }}</h2>
     </template>

@@ -70,7 +70,7 @@ const showModal = (project: string) => {
       </div>
     </section>
   </section>
-  <Modal ref="projectModal">
+  <Modal page="projects"  ref="projectModal">
     <template #content>
       <img class="modal-img" :src="image" alt="capture d'écran de l'application / site web" />
     </template>
