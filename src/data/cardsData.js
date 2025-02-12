@@ -11,11 +11,6 @@ export const cardsData = [
     message:
       "Vous avez besoin d'un site web ou le vôtre a besoin d'une cure de rajeunissement? Comme pour la création d'application web, j'y vais selon vos besoins. À travers la plateforme WordPress, que ce soit une page simple ou plusieurs pages avec des intégrations à vos outils, votre site sera fait sur mesure.",
   },
-  // {
-  //   id: "ecomm",
-  //   title: "La création de commerces en ligne",
-  //   message: "",
-  // },
   {
     id: "rd",
     title: "Appui à la R&D d'une entreprise",
