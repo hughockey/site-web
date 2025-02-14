@@ -88,11 +88,11 @@ section {
 }
 
 h3 {
-  padding: 10px 0;
+  padding: 0.625rem 0;
 }
 
 img {
-  width: 450px;
+  width: 28.125rem;
   cursor: pointer;
 }
 
@@ -101,11 +101,11 @@ img {
 }
 
 .project-informations-container > div {
-  margin-top: 30px;
+  margin-top: 1.875rem;
 }
 
 .tag-spacing {
-  margin-right: 10px;
+  margin-right: 0.625rem;
 }
 
 @media (min-width: 1200px) {
@@ -118,7 +118,7 @@ img {
   }
 
   .project-informations-container > div > img {
-    margin-right: 20px;
+    margin-right: 1.25rem;
   }
 }
 </style>

@@ -37,14 +37,11 @@ defineProps<TagProps>()
 </script>
 <template>
   <span :style="{
-        padding: '2px 4px',
+        padding: '0.125rem 0.250rem',
         background: `${tagColor[label]}`,
         borderRadius: '5px',
         color: 'black'
       }" :class="class">{{ label }}</span>
 </template>
 <style lang="css" scoped>
-span {
-  font-family: var(--font-text);
-}
 </style>
