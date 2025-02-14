@@ -44,7 +44,4 @@ defineProps<TagProps>()
       }" :class="class">{{ label }}</span>
 </template>
 <style lang="css" scoped>
-span {
-  font-family: var(--font-text);
-}
 </style>

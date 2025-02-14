@@ -3,6 +3,18 @@ html {
   background-color: var(--background);
 }
 
+@media (max-width: 1024px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 650px) {
+  html {
+    font-size: 12px;
+  }
+}
+
 button {
   width: 180px;
   height: 50px;
@@ -63,6 +75,21 @@ a {
   text-decoration: none;
   font-size: 1.15rem;
 }
+
+span {
+  font-family: var(--font-text);
+}
+
+input {
+  height: 30px;
+  padding-left: 5px;
+  border-radius: 5px;
+}
+
+input::placeholder {
+  font-family: var(--font-text);
+}
+
 .max-content-width {
   max-width: 1200px;
 }
@@ -85,10 +112,4 @@ svg:hover {
 .fade-animation.visible {
   opacity: 1;
   transform: translateY(0)
-}
-
-@media (max-width: 650px) {
-  html {
-    font-size: 10px;
-  }
 }

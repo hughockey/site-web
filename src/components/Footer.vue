@@ -10,6 +10,5 @@
     height: 40px;
     text-align: center;
     text-transform: uppercase;
-    font-family: var(--font-text);
   }
 </style>

@@ -30,16 +30,16 @@ onMounted(() => {
 });
 
 const toast = useToast();
-
+const politique_checkbox = ref(false);
 const contactForm = ref<HTMLFormElement>();
 let title = ref<string>("");
 let message = ref<string>("");
 const error = ref<boolean>(true);
 
-const validateField = (e: FocusEvent) => {
+const validateField = (e: Event) => {
   error.value = false;
   const inputElement = e.target as HTMLInputElement;
-  if (inputElement.value === "" || inputElement.value === null) {
+  if (inputElement.value === "" || inputElement.value === null || !politique_checkbox.value) {
     error.value = true;
   }
 };
@@ -843,7 +843,14 @@ const showModal = (e: MouseEvent) => {
             name="message"
             @blur="validateField($event)"
           ></textarea>
-          <input type="text" name="website" autocomplete="off" tabindex="-1" style="display: none !important;" v-model="honeypot" />
+          <div>
+            <input type="checkbox" id="consent" name="consent" v-model="politique_checkbox" @change="validateField" required>
+            <label for="consent" class="consent">
+              <span> En cochant cette case, j'autorise Hugo Lemieux à conserver et traiter mes renseignements personnels afin de répondre à ma demande. 
+                Pour plus d'informations, consultez la <a href="/politique-de-confidentialite">Politique de confidentialité</a>. </span>
+            </label>
+          </div>
+          <input type="text" name="website" autocomplete="off" tabindex="-1" class="hover" v-model="honeypot" />
           <button type="submit" class="contact-form-submit__button">
             Soumettre
           </button>
@@ -923,14 +930,9 @@ svg {
   flex-shrink: 1;
 }
 
-input {
-  height: 30px;
-  padding-left: 5px;
-  border-radius: 5px;
-}
-
-input::placeholder {
-  font-family: var(--font-text);
+input[type="checkbox"] {
+  height: auto;
+  vertical-align: middle;
 }
 
 textarea {
@@ -944,11 +946,25 @@ textarea::placeholder {
   font-family: var(--font-text);
 }
 
+.consent {
+  font-size: 0.750rem;
+  vertical-align: middle;
+}
+
+.consent a {
+  font-size: 0.800rem;
+  text-decoration: underline;
+}
+
 .contact-form-submit__button {
   align-self: flex-end;
 }
 
 .three-boxes-line {
   max-width: 900px;
+}
+
+.hover {
+  display: none;
 }
 </style>

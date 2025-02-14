@@ -4,6 +4,7 @@ import Content from "./components/Content.vue";
 import Footer from "./components/Footer.vue";
 import { nextTick, onMounted, ref } from "vue";
 import Projects from "./components/Projects.vue";
+import Politique from "./components/Politique.vue";
 
 const currentRoute = ref(window.location.pathname);
 const content = ref<InstanceType<typeof Content> | null>(null);
@@ -36,6 +37,9 @@ onMounted(() => {
   </div>
   <div v-if="currentRoute === '/projects'">
     <Projects></Projects>
+  </div>
+  <div v-if="currentRoute === '/politique-de-confidentialite'">
+    <Politique></Politique>
   </div>
   <Footer></Footer>
 
