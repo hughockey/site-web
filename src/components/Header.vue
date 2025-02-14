@@ -226,7 +226,7 @@ const goTo = (path: string) => {
 }
 
 .left-header-content {
-  padding-left: 25px;
+  padding-left: 1.562rem;
 }
 
 .projects-link {
@@ -243,10 +243,10 @@ const goTo = (path: string) => {
 }
 
 .socials-contact {
-  min-width: 310px;
+  min-width: 250px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding-right: 25px;
+  padding-right: 1.562rem;
 }
 </style>

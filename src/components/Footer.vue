@@ -7,7 +7,7 @@
 </template>
 <style lang="css" scoped>
   .footer-container {
-    height: 40px;
+    height: 2rem;
     text-align: center;
     text-transform: uppercase;
   }

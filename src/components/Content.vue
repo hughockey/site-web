@@ -100,10 +100,10 @@ const showModal = (e: MouseEvent) => {
 };
 </script>
 <template>
-  <section class="presentation-section fade-animation">
-    <div class="presentation-section-content max-content-width">
-      <div class="presentation-section-description">
-        <h1>Salut, moi c'est <span>Hugo</span>.</h1>
+  <section class="fade-animation">
+    <div class="max-content-width">
+      <div>
+        <h1>Salut, moi c'est <span class="name">Hugo</span>.</h1>
         <p>
           Développeur depuis 9 ans, développeur frontend depuis 6 ans et
           maintenant <span>pigiste</span>.
@@ -115,7 +115,7 @@ const showModal = (e: MouseEvent) => {
   <section class="fade-animation">
     <div class="max-content-width">
       <div>
-        <h1>Qu'est-ce j'offre?</h1>
+        <h1>Qu'est-ce que j'offre?</h1>
         <p>
           J'offre mon expertise pour vous accompagner dans la réalisation de vos
           projets comme:
@@ -418,7 +418,7 @@ const showModal = (e: MouseEvent) => {
   <section class="fade-animation">
     <div class="max-content-width">
       <div>
-        <h1>Comment ça se passe pour les projets?</h1>
+        <h1>Les étapes du projet</h1>
         <p>
           Tous les projets sont personnalisés selon vos besoins et votre
           réalité:
@@ -873,7 +873,7 @@ section {
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
-  margin-bottom: 165px;
+  margin-bottom: 10.3125rem;
   display: grid;
   place-items: center;
 }
@@ -890,18 +890,18 @@ span {
 .cards-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 0.625rem;
   max-width: 800px;
   justify-content: center;
 }
 
 .card {
-  width: 220px;
-  height: 200px;
+  width: 13.75rem;
+  height: 12.5rem;
   border: 1px solid var(--gray);
-  border-radius: 5px;
-  padding: 30px;
-  margin: 10px 10px 10px 0px;
+  border-radius: 0.312rem;
+  padding: 1.875rem;
+  margin: 0.625rem 0.625rem 0.625rem 0rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -922,11 +922,11 @@ svg {
 }
 
 .contact-form {
-  margin-top: 50px;
+  margin-top: 3.125rem;
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 8px;
+  gap: 0.5rem;
   flex-shrink: 1;
 }
 
@@ -936,14 +936,18 @@ input[type="checkbox"] {
 }
 
 textarea {
-  height: 100px;
-  padding-left: 10px;
-  padding-top: 6px;
-  border-radius: 5px;
+  height: 6.25rem;
+  padding-left: 0.625rem;
+  padding-top: 0.375rem;
+  border-radius: 0.312rem;
 }
 
 textarea::placeholder {
   font-family: var(--font-text);
+}
+
+.name {
+  font-family: inherit;
 }
 
 .consent {
