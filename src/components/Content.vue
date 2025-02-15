@@ -105,7 +105,7 @@ const showModal = (e: MouseEvent) => {
       <div>
         <h1>Salut, moi c'est <span class="name">Hugo</span>.</h1>
         <p>
-          Développeur depuis 9 ans, développeur frontend depuis 6 ans et
+          Développeur depuis 10 ans, développeur frontend depuis 7 ans et
           maintenant <span>pigiste</span>.
         </p>
       </div>
@@ -918,7 +918,9 @@ svg {
 
 .contact-form-container {
   display: flex;
-  justify-content: center;
+  margin: auto;
+  width: 80%;
+  max-width: 800px;
 }
 
 .contact-form {

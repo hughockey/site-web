@@ -38,6 +38,7 @@ dialog {
 
 .home-size {
   max-width: 1200px;
+  width: 80%;
 }
 
 .project-size {
