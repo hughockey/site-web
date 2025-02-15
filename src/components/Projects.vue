@@ -54,8 +54,8 @@ const showModal = (project: string) => {
 <template>
   <section>
     <h1>Projets</h1>
-    <section v-for="item in items">
-      <div class="project-informations-container">
+    <!-- <section v-for="item in items"> -->
+      <!-- <div class="project-informations-container">
         <h3>{{ item.nom }}</h3>
         <template v-for="tag in item.stack">
           <Tag :class="'tag-spacing'" :label="tag" />
@@ -67,8 +67,26 @@ const showModal = (project: string) => {
             <a v-if="item.lien !== ''" :href="item.lien" target="_blank" rel="nofollow">Cliquez ici pour voir le site web</a>
           </div>
         </div>
+      </div> -->
+    <!-- </section> -->
+     <section>
+      <div class="project-list-container">
+        <div v-for="item in items" class="project-container">
+          <img :src="item.captureEcran" alt="capture d'écran de l'application / site web" @click="showModal(item.nom)"/>
+          <!-- <div class="overlay"> -->
+          <div class="overlay-content">
+            <h3>{{ item.nom }}</h3>
+            <div class="tag-list">
+              <template v-for="tag in item.stack">
+                <Tag :class="'tag-spacing'" :label="tag" />
+              </template>
+            </div>
+          </div>
+          <!-- </div> -->
+        </div>
+
       </div>
-    </section>
+     </section>
   </section>
   <Modal page="projects"  ref="projectModal">
     <template #content>
@@ -84,9 +102,68 @@ section {
   margin: 0 auto;
   text-align: center;
   display: grid;
+  gap: 0.625rem;
   place-items: center;
 }
 
+.project-list-container {
+  display: flex;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+  justify-content: center
+}
+
+.project-container {
+  position: relative;
+}
+
+img {
+  width: 28.125rem;
+  cursor: pointer;
+  height: 230px;
+  object-fit: cover;
+  object-position: top left;
+}
+
+.overlay-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: -webkit-fill-available;
+  height: -moz-available;
+  height: fill-available;
+  width: -webkit-fill-available;
+  width: -moz-available;
+  width: fill-available;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-container:hover .overlay-content {
+  opacity: 1;
+}
+
+.overlay-content h3 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.tag-list {
+  display: flex;
+  gap: 0.625rem;
+  margin-top: 0.625rem;
+}
+
+.tag-spacing {
+  display: flex;
+}
+/* 
 h3 {
   padding: 0.625rem 0;
 }
@@ -120,5 +197,5 @@ img {
   .project-informations-container > div > img {
     margin-right: 1.25rem;
   }
-}
+} */
 </style>
