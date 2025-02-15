@@ -40,12 +40,16 @@ items.value.forEach(item => {
 const projectModal = ref<InstanceType<typeof Modal>>();
 const title = ref<string>('');
 const image = ref<string>('');
+const description = ref<string>('');
+const lien = ref<string>('');
 
 const showModal = (project: string) => {
   const item = items.value.find(item => item.nom === project);
   if (item) {
     title.value = item.nom || '';
     image.value = item.captureEcran || '';
+    description.value = item.description || '';
+    lien.value = item.lien || '';
   }
   projectModal.value?.openDialog();
 }
@@ -54,27 +58,11 @@ const showModal = (project: string) => {
 <template>
   <section>
     <h1>Projets</h1>
-    <!-- <section v-for="item in items"> -->
-      <!-- <div class="project-informations-container">
-        <h3>{{ item.nom }}</h3>
-        <template v-for="tag in item.stack">
-          <Tag :class="'tag-spacing'" :label="tag" />
-        </template>
-        <div>
-          <img :src="item.captureEcran" alt="capture d'écran de l'application / site web" @click="showModal(item.nom)"/>
-          <div>
-            <p>{{ item.description }}</p>
-            <a v-if="item.lien !== ''" :href="item.lien" target="_blank" rel="nofollow">Cliquez ici pour voir le site web</a>
-          </div>
-        </div>
-      </div> -->
-    <!-- </section> -->
      <section>
       <div class="project-list-container">
         <div v-for="item in items" class="project-container">
-          <img :src="item.captureEcran" alt="capture d'écran de l'application / site web" @click="showModal(item.nom)"/>
-          <!-- <div class="overlay"> -->
-          <div class="overlay-content">
+          <img :src="item.captureEcran" alt="capture d'écran de l'application / site web"/>
+          <div class="overlay-content" @click="showModal(item.nom)">
             <h3>{{ item.nom }}</h3>
             <div class="tag-list">
               <template v-for="tag in item.stack">
@@ -82,7 +70,6 @@ const showModal = (project: string) => {
               </template>
             </div>
           </div>
-          <!-- </div> -->
         </div>
 
       </div>
@@ -90,7 +77,14 @@ const showModal = (project: string) => {
   </section>
   <Modal page="projects"  ref="projectModal">
     <template #content>
-      <img class="modal-img" :src="image" alt="capture d'écran de l'application / site web" />
+      <div>
+        <h3>{{ title }}</h3>
+        <img :src="image" alt="capture d'écran de l'application / site web"/>
+        <div>
+          <p>{{ description }}</p>
+          <a v-if="lien !== ''" :href="lien" target="_blank" rel="nofollow">Cliquez ici pour voir le site web</a>
+        </div>
+      </div>
     </template>
   </Modal>
 </template>
@@ -143,6 +137,7 @@ img {
   transition: opacity 0.3s ease;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 }
 
 .project-container:hover .overlay-content {
@@ -152,6 +147,7 @@ img {
 .overlay-content h3 {
   margin: 0;
   font-size: 1.5rem;
+  color: var(--gray)
 }
 
 .tag-list {
@@ -163,39 +159,4 @@ img {
 .tag-spacing {
   display: flex;
 }
-/* 
-h3 {
-  padding: 0.625rem 0;
-}
-
-img {
-  width: 28.125rem;
-  cursor: pointer;
-}
-
-.modal-img {
-  width: 100%;
-}
-
-.project-informations-container > div {
-  margin-top: 1.875rem;
-}
-
-.tag-spacing {
-  margin-right: 0.625rem;
-}
-
-@media (min-width: 1200px) {
-  .project-informations-container {
-    text-align: left;
-  }
-
-  .project-informations-container > div {
-    display: flex;
-  }
-
-  .project-informations-container > div > img {
-    margin-right: 1.25rem;
-  }
-} */
 </style>
