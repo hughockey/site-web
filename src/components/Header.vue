@@ -217,7 +217,6 @@ const goTo = (path: string) => {
 
 <style lang="css" scoped>
 .header-container {
-  width: 100vw;
   height: 80px;
   background-color: var(--background);
   display: flex;

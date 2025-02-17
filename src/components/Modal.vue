@@ -7,10 +7,12 @@ const dialog = ref<HTMLDialogElement>()
 
 const openDialog = () => {
   dialog.value?.showModal()
+  document.body.style.overflow = 'hidden'
 }
 
 const closeDialog = () => {
-  dialog.value?.close()
+  dialog.value?.close();
+  document.body.style.overflow = 'auto'
 }
 
 defineExpose({
