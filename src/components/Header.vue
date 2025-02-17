@@ -230,7 +230,7 @@ const goTo = (path: string) => {
 }
 
 .projects-link {
-  font-size: 1.65rem;
+  font-size: 1.45rem;
   text-decoration: underline 0.15rem rgba(177, 178, 181, 0);
   font-family: var(--font-title);
   color: var(--gray);

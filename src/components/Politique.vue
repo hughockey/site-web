@@ -1,5 +1,5 @@
 <template>
-  <section class="max-content-width">
+  <section class="max-content-width alignment">
     <h2>Politique de confidentialité</h2>
     <span>Dernière mise à jour: 13 février 2025</span>
     <p>Je prends la protection de vos renseignements personnels très au sérieux. Cette politique de confidentialité explique comment je collectionne, utilise, conserve et protége vos données personnelles lorsque vous utilisez notre formulaire de contact.</p>
@@ -46,8 +46,8 @@
         <li>Droit de rectification : Vous pouvez demander la correction de toute information inexacte ou incomplète.</li>
         <li>Retrait et suppression : Vous pouvez demander la suppression de vos données avant le délai d’un an.</li>
       </ul>
-      Pour exercer ces droits, veuillez me contacter à l'adresse e-mail suivante : hl@hugolemieux.com.
     </p>
+    <p>Pour exercer ces droits, veuillez me contacter à l'adresse e-mail suivante : hl@hugolemieux.com.</p>
     <br>
     <h3>7. Consentement</h3>
     <p>
@@ -61,4 +61,19 @@
   </section>
 </template>
 <style lang="css" scoped>
+.alignment {
+  margin: 0 auto;
+}
+
+span {
+  font-size: 0.875rem;
+  color: var(--secondary);
+}
+
+ul {
+  list-style-type: disc;
+  font-size: 1.3rem;
+  font-family: var(--font-text);
+  color: var(--secondary);
+}
 </style>

@@ -77,7 +77,7 @@ const showModal = (project: string) => {
   </section>
   <Modal page="projects"  ref="projectModal">
     <template #content>
-      <div>
+      <div class="modal-content">
         <h3>{{ title }}</h3>
         <img :src="image" alt="capture d'écran de l'application / site web"/>
         <div>
@@ -98,6 +98,14 @@ section {
   display: grid;
   gap: 0.625rem;
   place-items: center;
+}
+
+.modal-content {
+  text-align: center;
+}
+
+h3 {
+  padding-bottom: 10px;
 }
 
 .project-list-container {
