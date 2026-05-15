@@ -3,68 +3,98 @@ import { ref } from 'vue';
 
 const props = defineProps<{ page: string }>();
 
-const dialog = ref<HTMLDialogElement>()
+const dialog = ref<HTMLDialogElement>();
 
 const openDialog = () => {
-  dialog.value?.showModal()
-  document.body.style.overflow = 'hidden'
-}
+  dialog.value?.showModal();
+  document.body.style.overflow = 'hidden';
+};
 
 const closeDialog = () => {
   dialog.value?.close();
-  document.body.style.overflow = 'auto'
-}
+  document.body.style.overflow = 'auto';
+};
 
-defineExpose({
-  openDialog
-})
+defineExpose({ openDialog });
 </script>
+
 <template>
-  <dialog :class="props.page === 'home' ? 'home-size' : 'project-size'" ref="dialog">
-    <div class="close-icon">
-      <svg @click="closeDialog" width="24" xmlns="http://www.w3.org/2000/svg" height="24" fill="none"><g data-testid="x"><g class="fills"><rect rx="0" ry="0" width="24" height="24" class="frame-background"/></g><g class="frame-children"><g data-testid="svg-path"><path d="M18 6 6 18" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="M18 6 6 18" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g><g data-testid="svg-path"><path d="m6 6 12 12" style="fill: none;" class="fills"/><g stroke-linecap="round" stroke-linejoin="round" class="strokes"><path d="m6 6 12 12" style="fill: none; stroke-width: 2; stroke: rgb(177, 178, 181); stroke-opacity: 1;" class="stroke-shape"/></g></g></g></g></svg>
-    </div>
-    <div class="modal-content">
+  <dialog :class="['modal-dialog', props.page === 'home' ? 'home-size' : 'project-size']" ref="dialog">
+    <div class="modal-header">
       <slot name="title"></slot>
+      <button class="close-btn" type="button" @click="closeDialog" aria-label="Fermer">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 6 6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-body">
       <slot name="content">
         <p>Aucune information disponible</p>
       </slot>
     </div>
   </dialog>
 </template>
+
 <style scoped lang="css">
-dialog {
-  background-color: var(--background);
-  border-radius: 5px;
+.modal-dialog {
+  background: var(--surface);
+  border: 1px solid var(--border-bright);
+  border-radius: 12px;
+  padding: 0;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--border);
+  color: var(--text);
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .home-size {
-  max-width: 1200px;
-  width: 80%;
+  max-width: 680px;
+  width: 90%;
 }
 
 .project-size {
-  max-width: 1200px;
+  max-width: 900px;
+  width: 90%;
 }
 
-.modal-content {
-  padding: 3.4375rem;
+.modal-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
 }
 
-dialog::backdrop {
-  background-color: var(--background);
-  opacity: 0.5;
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem 1rem;
+  border-bottom: 1px solid var(--border);
 }
 
-.close-icon {
-  text-align: end;
-  margin-bottom: 1.562rem;
+.modal-body {
+  padding: 2rem;
+}
+
+.close-btn {
+  all: unset;
+  cursor: pointer;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: color 0.2s, background 0.2s;
+}
+
+.close-btn:hover {
+  color: var(--text);
+  background: var(--surface-2);
+  box-shadow: none;
 }
 
 @media (max-width: 1024px) {
   .project-size {
-    height: fit-content;
-    width: auto;
+    width: 95%;
   }
 }
 </style>

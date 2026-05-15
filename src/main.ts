@@ -1,15 +1,22 @@
-import { createApp } from 'vue'
 import './style.css'
-import App from './App.vue'
 import './assets/css/variables.css'
+import App from './App.vue'
+import { ViteSSG } from 'vite-ssg'
+import routes from './router'
 
-import Toast, { PluginOptions, POSITION } from "vue-toastification";
-import "vue-toastification/dist/index.css";
+import Toast, { PluginOptions, POSITION } from 'vue-toastification'
+import 'vue-toastification/dist/index.css'
+import { MotionPlugin } from '@vueuse/motion'
 
-const app = createApp(App)
-const options: PluginOptions = {
-  position: POSITION.BOTTOM_RIGHT,
-  hideProgressBar: true,
-}
-app.use(Toast, options)
-app.mount('#app')
+export const createApp = ViteSSG(
+  App,
+  { routes },
+  ({ app }) => {
+    const options: PluginOptions = {
+      position: POSITION.BOTTOM_RIGHT,
+      hideProgressBar: true,
+    }
+    app.use(Toast, options)
+    app.use(MotionPlugin)
+  }
+)

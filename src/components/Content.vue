@@ -1,45 +1,52 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { onMounted, onBeforeUnmount, ref } from "vue";
+import Typed from "typed.js";
 import Modal from "./Modal.vue";
 import emailjs from "@emailjs/browser";
 import { useToast, TYPE } from "vue-toastification";
 import { cardsData } from "../data/cardsData.js";
 
-const sections = ref<NodeListOf<HTMLElement> | null>(null);
-onMounted(() => {
-  sections.value = document.querySelectorAll(
-    ".fade-animation"
-  ) as NodeListOf<HTMLElement>;
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    {
-      threshold: 0.5,
-    }
-  );
+// Typed.js setup
+const typedEl = ref<HTMLElement | null>(null);
+let typed: Typed | null = null;
 
-  sections.value.forEach((section) => {
-    observer.observe(section); // Observe each section
+onMounted(() => {
+  typed = new Typed(typedEl.value!, {
+    strings: [
+      "développeur frontend depuis 7 ans.",
+      "pigiste.",
+      "passionné de web &amp; d'automatisation.",
+    ],
+    typeSpeed: 45,
+    backSpeed: 25,
+    backDelay: 2500,
+    loop: true,
+    showCursor: true,
+    cursorChar: "█",
   });
 });
 
+onBeforeUnmount(() => {
+  typed?.destroy();
+});
+
+// Contact form
 const toast = useToast();
 const politique_checkbox = ref(false);
 const contactForm = ref<HTMLFormElement>();
 let title = ref<string>("");
 let message = ref<string>("");
 const error = ref<boolean>(true);
+const honeypot = ref("");
 
 const validateField = (e: Event) => {
   error.value = false;
   const inputElement = e.target as HTMLInputElement;
-  if (inputElement.value === "" || inputElement.value === null || !politique_checkbox.value) {
+  if (
+    inputElement.value === "" ||
+    inputElement.value === null ||
+    !politique_checkbox.value
+  ) {
     error.value = true;
   }
 };
@@ -47,12 +54,11 @@ const validateField = (e: Event) => {
 const resetFields = () => {
   contactForm.value?.reset();
 };
-const honeypot = ref('')
+
 const sendEmail = async () => {
-  if (honeypot.value !== '') {
-    toast.error('Something went wrong...', {
-      type: TYPE.ERROR,
-    });
+  if (honeypot.value !== "") {
+    toast.error("Something went wrong...", { type: TYPE.ERROR });
+    return;
   }
   if (!error.value) {
     emailjs
@@ -60,769 +66,169 @@ const sendEmail = async () => {
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         contactForm.value ?? "",
-        {
-          publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
-        } as any
+        { publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY } as any
       )
       .then(
         () => {
           toast.success("Message envoyé avec succès!", {
             type: TYPE.SUCCESS,
-            timeout: 20000000,
+            timeout: 5000,
           });
           resetFields();
         },
-        (error: any) => {
-          toast.error(
-            "Un problème est survenu, veuillez réessayer plus tard...",
-            {
-              type: TYPE.ERROR,
-            }
-          );
-          console.log(error);
+        (err: any) => {
+          toast.error("Un problème est survenu, veuillez réessayer plus tard...", {
+            type: TYPE.ERROR,
+          });
+          console.log(err);
         }
       );
   }
 };
 
+// Modal
 const modalComponent = ref<InstanceType<typeof Modal>>();
 const clickedCardId = ref<string>("");
 
 const showModal = (e: MouseEvent) => {
-  const target = e.currentTarget as SVGElement;
+  const target = e.currentTarget as HTMLElement;
   clickedCardId.value = target.dataset.text || "";
-  const cardInfos = cardsData.filter(
-    (card: any) => card.id === clickedCardId.value
-  );
+  const cardInfos = cardsData.filter((card: any) => card.id === clickedCardId.value);
   title.value = cardInfos[0].title;
   message.value = cardInfos[0].message;
   modalComponent.value?.openDialog();
 };
+
+const services = [
+  { id: "appWeb", label: "Applications web personnalisées" },
+  { id: "siteWeb", label: "Création de site web" },
+  { id: "rd", label: "Appui à la R&D" },
+];
+
+const steps = [
+  { id: "step1", num: "01", label: "Rencontre initiale" },
+  { id: "step2", num: "02", label: "Envoi de la soumission" },
+  { id: "step3", num: "03", label: "Développement" },
+  { id: "step4", num: "04", label: "Ajustements & livraison" },
+];
 </script>
+
 <template>
-  <section class="fade-animation">
-    <div class="max-content-width">
-      <div>
-        <h1>Salut, moi c'est <span class="name">Hugo</span>.</h1>
-        <p>
-          Développeur depuis 10 ans, développeur frontend depuis 7 ans et
-          maintenant <span>pigiste</span>.
-        </p>
-      </div>
-      <img alt="cartoon représentant Hugo" src="../assets/images/Avatar.png" />
+  <!-- Hero -->
+  <section
+    class="hero"
+    v-motion
+    :initial="{ opacity: 0, y: 40 }"
+    :enter="{ opacity: 1, y: 0, transition: { duration: 700 } }"
+  >
+    <div class="hero-label">
+      <span class="label-dot"></span>
+      <span class="label-text">Disponible pour de nouveaux projets</span>
+    </div>
+    <h1>
+      Salut, moi c'est<br />
+      <span class="gradient-text">Hugo Lemieux.</span>
+    </h1>
+    <p class="hero-sub">
+      Développeur depuis 10 ans —&nbsp;<span ref="typedEl"></span>
+    </p>
+    <div class="hero-actions">
+      <a href="/projects" class="btn-primary">Voir mes projets</a>
     </div>
   </section>
-  <section class="fade-animation">
-    <div class="max-content-width">
-      <div>
-        <h1>Qu'est-ce que j'offre?</h1>
-        <p>
-          J'offre mon expertise pour vous accompagner dans la réalisation de vos
-          projets comme:
-        </p>
-      </div>
-      <div class="cards-list-container">
-        <div class="cards-list three-boxes-line">
-          <div class="card">
-            <p>La création d'applications web personnalisées</p>
-            <svg
-              @click="showModal($event)"
-              data-text="appWeb"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-              height="24"
-              fill="none"
-            >
-              <g data-testid="plus-square">
-                <g class="fills">
-                  <rect
-                    rx="0"
-                    ry="0"
-                    width="24"
-                    height="24"
-                    class="frame-background"
-                  />
-                </g>
-                <g class="frame-children">
-                  <g data-testid="svg-rect">
-                    <rect
-                      width="18"
-                      height="18"
-                      x="3"
-                      style="fill: none"
-                      ry="2"
-                      rx="2"
-                      y="3"
-                      class="fills"
-                    />
-                    <g
-                      stroke-linejoin="round"
-                      stroke-linecap="round"
-                      class="strokes"
-                    >
-                      <rect
-                        rx="2"
-                        ry="2"
-                        x="3"
-                        y="3"
-                        width="18"
-                        height="18"
-                        style="
-                          fill: none;
-                          stroke-width: 2;
-                          stroke: rgb(177, 178, 181);
-                          stroke-opacity: 1;
-                        "
-                        class="stroke-shape"
-                      />
-                    </g>
-                  </g>
-                  <g data-testid="svg-path">
-                    <path d="M8 12h8" style="fill: none" class="fills" />
-                    <g
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="strokes"
-                    >
-                      <path
-                        d="M8 12h8"
-                        style="
-                          fill: none;
-                          stroke-width: 2;
-                          stroke: rgb(177, 178, 181);
-                          stroke-opacity: 1;
-                        "
-                        class="stroke-shape"
-                      />
-                    </g>
-                  </g>
-                  <g data-testid="svg-path">
-                    <path d="M12 8v8" style="fill: none" class="fills" />
-                    <g
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="strokes"
-                    >
-                      <path
-                        d="M12 8v8"
-                        style="
-                          fill: none;
-                          stroke-width: 2;
-                          stroke: rgb(177, 178, 181);
-                          stroke-opacity: 1;
-                        "
-                        class="stroke-shape"
-                      />
-                    </g>
-                  </g>
-                </g>
-              </g>
-            </svg>
-          </div>
-          <div class="card">
-            <p>La création de votre site web</p>
-            <svg
-              @click="showModal($event)"
-              data-text="siteWeb"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-              height="24"
-              fill="none"
-            >
-              <g data-testid="plus-square">
-                <g class="fills">
-                  <rect
-                    rx="0"
-                    ry="0"
-                    width="24"
-                    height="24"
-                    class="frame-background"
-                  />
-                </g>
-                <g class="frame-children">
-                  <g data-testid="svg-rect">
-                    <rect
-                      width="18"
-                      height="18"
-                      x="3"
-                      style="fill: none"
-                      ry="2"
-                      rx="2"
-                      y="3"
-                      class="fills"
-                    />
-                    <g
-                      stroke-linejoin="round"
-                      stroke-linecap="round"
-                      class="strokes"
-                    >
-                      <rect
-                        rx="2"
-                        ry="2"
-                        x="3"
-                        y="3"
-                        width="18"
-                        height="18"
-                        style="
-                          fill: none;
-                          stroke-width: 2;
-                          stroke: rgb(177, 178, 181);
-                          stroke-opacity: 1;
-                        "
-                        class="stroke-shape"
-                      />
-                    </g>
-                  </g>
-                  <g data-testid="svg-path">
-                    <path d="M8 12h8" style="fill: none" class="fills" />
-                    <g
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="strokes"
-                    >
-                      <path
-                        d="M8 12h8"
-                        style="
-                          fill: none;
-                          stroke-width: 2;
-                          stroke: rgb(177, 178, 181);
-                          stroke-opacity: 1;
-                        "
-                        class="stroke-shape"
-                      />
-                    </g>
-                  </g>
-                  <g data-testid="svg-path">
-                    <path d="M12 8v8" style="fill: none" class="fills" />
-                    <g
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="strokes"
-                    >
-                      <path
-                        d="M12 8v8"
-                        style="
-                          fill: none;
-                          stroke-width: 2;
-                          stroke: rgb(177, 178, 181);
-                          stroke-opacity: 1;
-                        "
-                        class="stroke-shape"
-                      />
-                    </g>
-                  </g>
-                </g>
-              </g>
-            </svg>
-          </div>
-          <div class="card">
-            <p>Appui à la R&D d'une entreprise</p>
-            <svg
-              @click="showModal($event)"
-              data-text="rd"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-              height="24"
-              fill="none"
-            >
-              <g data-testid="plus-square">
-                <g class="fills">
-                  <rect
-                    rx="0"
-                    ry="0"
-                    width="24"
-                    height="24"
-                    class="frame-background"
-                  />
-                </g>
-                <g class="frame-children">
-                  <g data-testid="svg-rect">
-                    <rect
-                      width="18"
-                      height="18"
-                      x="3"
-                      style="fill: none"
-                      ry="2"
-                      rx="2"
-                      y="3"
-                      class="fills"
-                    />
-                    <g
-                      stroke-linejoin="round"
-                      stroke-linecap="round"
-                      class="strokes"
-                    >
-                      <rect
-                        rx="2"
-                        ry="2"
-                        x="3"
-                        y="3"
-                        width="18"
-                        height="18"
-                        style="
-                          fill: none;
-                          stroke-width: 2;
-                          stroke: rgb(177, 178, 181);
-                          stroke-opacity: 1;
-                        "
-                        class="stroke-shape"
-                      />
-                    </g>
-                  </g>
-                  <g data-testid="svg-path">
-                    <path d="M8 12h8" style="fill: none" class="fills" />
-                    <g
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="strokes"
-                    >
-                      <path
-                        d="M8 12h8"
-                        style="
-                          fill: none;
-                          stroke-width: 2;
-                          stroke: rgb(177, 178, 181);
-                          stroke-opacity: 1;
-                        "
-                        class="stroke-shape"
-                      />
-                    </g>
-                  </g>
-                  <g data-testid="svg-path">
-                    <path d="M12 8v8" style="fill: none" class="fills" />
-                    <g
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="strokes"
-                    >
-                      <path
-                        d="M12 8v8"
-                        style="
-                          fill: none;
-                          stroke-width: 2;
-                          stroke: rgb(177, 178, 181);
-                          stroke-opacity: 1;
-                        "
-                        class="stroke-shape"
-                      />
-                    </g>
-                  </g>
-                </g>
-              </g>
-            </svg>
-          </div>
+
+  <!-- Services -->
+  <section class="content-section" ref="services-section">
+    <div
+      class="section-header"
+      v-motion
+      :initial="{ opacity: 0, y: 30 }"
+      :visibleOnce="{ opacity: 1, y: 0, transition: { duration: 600 } }"
+    >
+      <span class="section-tag">// services</span>
+      <h2>Qu'est-ce que j'offre?</h2>
+      <p>Mon expertise à votre service pour réaliser vos projets.</p>
+    </div>
+    <div class="cards-grid">
+      <div
+        v-for="(service, index) in services"
+        :key="service.id"
+        class="card"
+        :data-text="service.id"
+        @click="showModal($event)"
+        v-motion
+        :initial="{ opacity: 0, y: 40 }"
+        :visibleOnce="{ opacity: 1, y: 0, transition: { delay: index * 120, duration: 600 } }"
+      >
+        <div class="card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polyline points="16 18 22 12 16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="8 6 2 12 8 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>{{ service.label }}</h3>
+        <div class="card-footer">
+          <span class="card-more">En savoir plus</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </div>
       </div>
     </div>
   </section>
-  <section class="fade-animation">
-    <div class="max-content-width">
-      <div>
-        <h1>Les étapes du projet</h1>
-        <p>
-          Tous les projets sont personnalisés selon vos besoins et votre
-          réalité:
-        </p>
-      </div>
-      <div class="cards-list-container">
-        <div class="cards-list">
-          <div class="card">
-            <p>Étape 1: Rencontre initiale</p>
-            <svg
-              @click="showModal($event)"
-              data-text="step1"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-              height="24"
-              fill="none"
-            >
-              <g data-testid="plus-square">
-                <g class="fills">
-                  <rect
-                    rx="0"
-                    ry="0"
-                    width="24"
-                    height="24"
-                    class="frame-background"
-                  />
-                </g>
-                <g class="frame-children">
-                  <g data-testid="svg-rect">
-                    <rect
-                      width="18"
-                      height="18"
-                      x="3"
-                      style="fill: none"
-                      ry="2"
-                      rx="2"
-                      y="3"
-                      class="fills"
-                    />
-                    <g
-                      stroke-linejoin="round"
-                      stroke-linecap="round"
-                      class="strokes"
-                    >
-                      <rect
-                        rx="2"
-                        ry="2"
-                        x="3"
-                        y="3"
-                        width="18"
-                        height="18"
-                        style="
-                          fill: none;
-                          stroke-width: 2;
-                          stroke: rgb(177, 178, 181);
-                          stroke-opacity: 1;
-                        "
-                        class="stroke-shape"
-                      />
-                    </g>
-                  </g>
-                  <g data-testid="svg-path">
-                    <path d="M8 12h8" style="fill: none" class="fills" />
-                    <g
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="strokes"
-                    >
-                      <path
-                        d="M8 12h8"
-                        style="
-                          fill: none;
-                          stroke-width: 2;
-                          stroke: rgb(177, 178, 181);
-                          stroke-opacity: 1;
-                        "
-                        class="stroke-shape"
-                      />
-                    </g>
-                  </g>
-                  <g data-testid="svg-path">
-                    <path d="M12 8v8" style="fill: none" class="fills" />
-                    <g
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="strokes"
-                    >
-                      <path
-                        d="M12 8v8"
-                        style="
-                          fill: none;
-                          stroke-width: 2;
-                          stroke: rgb(177, 178, 181);
-                          stroke-opacity: 1;
-                        "
-                        class="stroke-shape"
-                      />
-                    </g>
-                  </g>
-                </g>
-              </g>
-            </svg>
-          </div>
-          <div class="card">
-            <p>Étape 2: Envoi de la soumission</p>
-            <svg
-              @click="showModal($event)"
-              data-text="step2"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-              height="24"
-              fill="none"
-            >
-              <g data-testid="plus-square">
-                <g class="fills">
-                  <rect
-                    rx="0"
-                    ry="0"
-                    width="24"
-                    height="24"
-                    class="frame-background"
-                  />
-                </g>
-                <g class="frame-children">
-                  <g data-testid="svg-rect">
-                    <rect
-                      width="18"
-                      height="18"
-                      x="3"
-                      style="fill: none"
-                      ry="2"
-                      rx="2"
-                      y="3"
-                      class="fills"
-                    />
-                    <g
-                      stroke-linejoin="round"
-                      stroke-linecap="round"
-                      class="strokes"
-                    >
-                      <rect
-                        rx="2"
-                        ry="2"
-                        x="3"
-                        y="3"
-                        width="18"
-                        height="18"
-                        style="
-                          fill: none;
-                          stroke-width: 2;
-                          stroke: rgb(177, 178, 181);
-                          stroke-opacity: 1;
-                        "
-                        class="stroke-shape"
-                      />
-                    </g>
-                  </g>
-                  <g data-testid="svg-path">
-                    <path d="M8 12h8" style="fill: none" class="fills" />
-                    <g
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="strokes"
-                    >
-                      <path
-                        d="M8 12h8"
-                        style="
-                          fill: none;
-                          stroke-width: 2;
-                          stroke: rgb(177, 178, 181);
-                          stroke-opacity: 1;
-                        "
-                        class="stroke-shape"
-                      />
-                    </g>
-                  </g>
-                  <g data-testid="svg-path">
-                    <path d="M12 8v8" style="fill: none" class="fills" />
-                    <g
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="strokes"
-                    >
-                      <path
-                        d="M12 8v8"
-                        style="
-                          fill: none;
-                          stroke-width: 2;
-                          stroke: rgb(177, 178, 181);
-                          stroke-opacity: 1;
-                        "
-                        class="stroke-shape"
-                      />
-                    </g>
-                  </g>
-                </g>
-              </g>
-            </svg>
-          </div>
-          <div class="card">
-            <p>Étape 3: Développement</p>
-            <svg
-              @click="showModal($event)"
-              data-text="step3"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-              height="24"
-              fill="none"
-            >
-              <g data-testid="plus-square">
-                <g class="fills">
-                  <rect
-                    rx="0"
-                    ry="0"
-                    width="24"
-                    height="24"
-                    class="frame-background"
-                  />
-                </g>
-                <g class="frame-children">
-                  <g data-testid="svg-rect">
-                    <rect
-                      width="18"
-                      height="18"
-                      x="3"
-                      style="fill: none"
-                      ry="2"
-                      rx="2"
-                      y="3"
-                      class="fills"
-                    />
-                    <g
-                      stroke-linejoin="round"
-                      stroke-linecap="round"
-                      class="strokes"
-                    >
-                      <rect
-                        rx="2"
-                        ry="2"
-                        x="3"
-                        y="3"
-                        width="18"
-                        height="18"
-                        style="
-                          fill: none;
-                          stroke-width: 2;
-                          stroke: rgb(177, 178, 181);
-                          stroke-opacity: 1;
-                        "
-                        class="stroke-shape"
-                      />
-                    </g>
-                  </g>
-                  <g data-testid="svg-path">
-                    <path d="M8 12h8" style="fill: none" class="fills" />
-                    <g
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="strokes"
-                    >
-                      <path
-                        d="M8 12h8"
-                        style="
-                          fill: none;
-                          stroke-width: 2;
-                          stroke: rgb(177, 178, 181);
-                          stroke-opacity: 1;
-                        "
-                        class="stroke-shape"
-                      />
-                    </g>
-                  </g>
-                  <g data-testid="svg-path">
-                    <path d="M12 8v8" style="fill: none" class="fills" />
-                    <g
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="strokes"
-                    >
-                      <path
-                        d="M12 8v8"
-                        style="
-                          fill: none;
-                          stroke-width: 2;
-                          stroke: rgb(177, 178, 181);
-                          stroke-opacity: 1;
-                        "
-                        class="stroke-shape"
-                      />
-                    </g>
-                  </g>
-                </g>
-              </g>
-            </svg>
-          </div>
-          <div class="card">
-            <p>Étape 4: Derniers ajustements et livraison</p>
-            <svg
-              @click="showModal($event)"
-              data-text="step4"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-              height="24"
-              fill="none"
-            >
-              <g data-testid="plus-square">
-                <g class="fills">
-                  <rect
-                    rx="0"
-                    ry="0"
-                    width="24"
-                    height="24"
-                    class="frame-background"
-                  />
-                </g>
-                <g class="frame-children">
-                  <g data-testid="svg-rect">
-                    <rect
-                      width="18"
-                      height="18"
-                      x="3"
-                      style="fill: none"
-                      ry="2"
-                      rx="2"
-                      y="3"
-                      class="fills"
-                    />
-                    <g
-                      stroke-linejoin="round"
-                      stroke-linecap="round"
-                      class="strokes"
-                    >
-                      <rect
-                        rx="2"
-                        ry="2"
-                        x="3"
-                        y="3"
-                        width="18"
-                        height="18"
-                        style="
-                          fill: none;
-                          stroke-width: 2;
-                          stroke: rgb(177, 178, 181);
-                          stroke-opacity: 1;
-                        "
-                        class="stroke-shape"
-                      />
-                    </g>
-                  </g>
-                  <g data-testid="svg-path">
-                    <path d="M8 12h8" style="fill: none" class="fills" />
-                    <g
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="strokes"
-                    >
-                      <path
-                        d="M8 12h8"
-                        style="
-                          fill: none;
-                          stroke-width: 2;
-                          stroke: rgb(177, 178, 181);
-                          stroke-opacity: 1;
-                        "
-                        class="stroke-shape"
-                      />
-                    </g>
-                  </g>
-                  <g data-testid="svg-path">
-                    <path d="M12 8v8" style="fill: none" class="fills" />
-                    <g
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="strokes"
-                    >
-                      <path
-                        d="M12 8v8"
-                        style="
-                          fill: none;
-                          stroke-width: 2;
-                          stroke: rgb(177, 178, 181);
-                          stroke-opacity: 1;
-                        "
-                        class="stroke-shape"
-                      />
-                    </g>
-                  </g>
-                </g>
-              </g>
-            </svg>
-          </div>
+
+  <!-- Process steps -->
+  <section class="content-section">
+    <div
+      class="section-header"
+      v-motion
+      :initial="{ opacity: 0, y: 30 }"
+      :visibleOnce="{ opacity: 1, y: 0, transition: { duration: 600 } }"
+    >
+      <span class="section-tag">// processus</span>
+      <h2>Les étapes du projet</h2>
+      <p>Tous les projets sont personnalisés selon vos besoins et votre réalité.</p>
+    </div>
+    <div class="steps-grid">
+      <div
+        v-for="(step, index) in steps"
+        :key="step.id"
+        class="step-card"
+        :data-text="step.id"
+        @click="showModal($event)"
+        v-motion
+        :initial="{ opacity: 0, x: -20 }"
+        :visibleOnce="{ opacity: 1, x: 0, transition: { delay: index * 100, duration: 550 } }"
+      >
+        <span class="step-num">{{ step.num }}</span>
+        <div class="step-body">
+          <h3>{{ step.label }}</h3>
+          <span class="step-more">Voir les détails →</span>
         </div>
       </div>
     </div>
   </section>
-  <section class="fade-animation" ref="contact-section">
-    <div class="max-content-width">
-      <h1>On travaille ensemble?</h1>
-      <div class="contact-form-container">
-        <form
-          class="contact-form"
-          ref="contactForm"
-          @submit.prevent="sendEmail"
-        >
+
+  <!-- Contact -->
+  <section class="content-section" id="contact">
+    <div
+      class="section-header"
+      v-motion
+      :initial="{ opacity: 0, y: 30 }"
+      :visibleOnce="{ opacity: 1, y: 0, transition: { duration: 600 } }"
+    >
+      <span class="section-tag">// contact</span>
+      <h2>On travaille ensemble?</h2>
+      <p>Parlez-moi de votre projet et je vous reviens rapidement.</p>
+    </div>
+    <div
+      class="form-wrapper"
+      v-motion
+      :initial="{ opacity: 0, y: 30 }"
+      :visibleOnce="{ opacity: 1, y: 0, transition: { delay: 150, duration: 600 } }"
+    >
+      <form class="contact-form" ref="contactForm" @submit.prevent="sendEmail">
+        <div class="form-row">
           <input
             required
             type="text"
@@ -837,27 +243,35 @@ const showModal = (e: MouseEvent) => {
             name="contact_email"
             @blur="validateField($event)"
           />
-          <textarea
+        </div>
+        <textarea
+          required
+          placeholder="Message"
+          name="message"
+          rows="5"
+          @blur="validateField($event)"
+        ></textarea>
+        <label class="consent-label">
+          <input
+            type="checkbox"
+            id="consent"
+            name="consent"
+            v-model="politique_checkbox"
+            @change="validateField"
             required
-            placeholder="Message"
-            name="message"
-            @blur="validateField($event)"
-          ></textarea>
-          <div>
-            <input type="checkbox" id="consent" name="consent" v-model="politique_checkbox" @change="validateField" required>
-            <label for="consent" class="consent">
-              <span> En cochant cette case, j'autorise Hugo Lemieux à conserver et traiter mes renseignements personnels afin de répondre à ma demande. 
-                Pour plus d'informations, consultez la <a href="/politique-de-confidentialite">Politique de confidentialité</a>. </span>
-            </label>
-          </div>
-          <input type="text" name="website" autocomplete="off" tabindex="-1" class="hover" v-model="honeypot" />
-          <button type="submit" class="contact-form-submit__button">
-            Soumettre
-          </button>
-        </form>
-      </div>
+          />
+          <span>
+            En cochant cette case, j'autorise Hugo Lemieux à conserver et traiter mes
+            renseignements personnels afin de répondre à ma demande.
+            <a href="/politique-de-confidentialite">Politique de confidentialité</a>.
+          </span>
+        </label>
+        <input type="text" name="website" autocomplete="off" tabindex="-1" class="honeypot" v-model="honeypot" />
+        <button type="submit" class="submit-btn">Soumettre</button>
+      </form>
     </div>
   </section>
+
   <Modal page="home" ref="modalComponent">
     <template #title>
       <h2>{{ title }}</h2>
@@ -867,110 +281,308 @@ const showModal = (e: MouseEvent) => {
     </template>
   </Modal>
 </template>
+
 <style scoped lang="css">
-section {
-  min-height: calc(100vh - 80px);
+/* ── Hero ── */
+.hero {
+  min-height: calc(100vh - 68px);
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.label-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 8px var(--primary);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--primary); }
+  50% { opacity: 0.6; box-shadow: 0 0 16px var(--primary); }
+}
+
+.label-text {
+  font-family: var(--font-text);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  color: var(--text);
+  line-height: 1.1;
+}
+
+.hero-sub {
+  font-size: 1.1rem;
+  color: var(--text-dim);
+  min-height: 1.8em;
+  margin: 0;
+}
+
+.hero-sub :deep(.typed-cursor) {
+  color: var(--primary);
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.btn-primary {
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--background);
+  background: var(--primary);
+  padding: 0.7rem 1.5rem;
+  border-radius: 6px;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.btn-primary:hover {
+  background: #67e8f9;
+  box-shadow: 0 0 24px var(--primary-glow-strong);
+  color: var(--background);
+}
+
+/* ── Content sections ── */
+.content-section {
+  max-width: 1200px;
+  margin: 0 auto 8rem;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.section-header {
   text-align: center;
-  margin-bottom: 10.3125rem;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.section-tag {
+  font-family: var(--font-text);
+  font-size: 0.8rem;
+  color: var(--primary);
+  letter-spacing: 0.1em;
+}
+
+.section-header p {
+  max-width: 520px;
+  text-align: center;
+}
+
+/* ── Service cards ── */
+.cards-grid {
   display: grid;
-  place-items: center;
-}
-
-span {
-  color: var(--primary-light);
-}
-
-.cards-list-container {
-  display: flex;
-  justify-content: center;
-}
-
-.cards-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.625rem;
-  max-width: 800px;
-  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
 }
 
 .card {
-  width: 13.75rem;
-  height: 12.5rem;
-  border: 1px solid var(--gray);
-  border-radius: 0.312rem;
-  padding: 1.875rem;
-  margin: 0.625rem 0.625rem 0.625rem 0rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.75rem;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  transition: filter 0.3s;
+  gap: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
 }
 
 .card:hover {
-  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+  border-color: var(--primary);
+  box-shadow: 0 0 30px var(--primary-glow);
+  transform: translateY(-3px);
 }
 
-svg {
-  align-self: flex-end;
-}
-
-.contact-form-container {
+.card-icon {
+  color: var(--primary);
+  width: 40px;
+  height: 40px;
+  background: var(--primary-glow);
+  border-radius: 8px;
   display: flex;
-  margin: auto;
-  width: 80%;
-  max-width: 800px;
+  align-items: center;
+  justify-content: center;
+}
+
+.card h3 {
+  color: var(--text);
+  font-size: 1rem;
+  flex: 1;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--primary);
+}
+
+.card-more {
+  font-family: var(--font-text);
+  font-size: 0.8rem;
+}
+
+.card-footer svg {
+  color: var(--primary);
+  transition: transform 0.2s;
+}
+
+.card:hover .card-footer svg {
+  transform: translateX(4px);
+  filter: none;
+}
+
+/* ── Steps ── */
+.steps-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.step-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem 1.75rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  cursor: pointer;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.step-card:hover {
+  border-color: var(--primary);
+  box-shadow: 0 0 20px var(--primary-glow);
+}
+
+.step-num {
+  font-family: var(--font-text);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  opacity: 0.4;
+  min-width: 2.5rem;
+}
+
+.step-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.step-body h3 {
+  font-size: 1rem;
+}
+
+.step-more {
+  font-family: var(--font-text);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+
+.step-card:hover .step-more {
+  color: var(--primary);
+}
+
+/* ── Contact form ── */
+.form-wrapper {
+  max-width: 680px;
+  margin: 0 auto;
 }
 
 .contact-form {
-  margin-top: 3.125rem;
   display: flex;
   flex-direction: column;
+  gap: 0.75rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
   width: 100%;
+}
+
+.consent-label {
+  display: flex;
+  align-items: flex-start;
   gap: 0.5rem;
-  flex-shrink: 1;
+  cursor: pointer;
 }
 
-input[type="checkbox"] {
-  height: auto;
-  vertical-align: middle;
+.consent-label input[type="checkbox"] {
+  width: auto;
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+  accent-color: var(--primary);
 }
 
-textarea {
-  height: 6.25rem;
-  padding-left: 0.625rem;
-  padding-top: 0.375rem;
-  border-radius: 0.312rem;
-}
-
-textarea::placeholder {
+.consent-label span {
   font-family: var(--font-text);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.5;
 }
 
-.name {
-  font-family: inherit;
+.consent-label a {
+  font-size: 0.75rem;
 }
 
-.consent {
-  font-size: 0.750rem;
-  vertical-align: middle;
-}
-
-.consent a {
-  font-size: 0.800rem;
-  text-decoration: underline;
-}
-
-.contact-form-submit__button {
+.submit-btn {
   align-self: flex-end;
 }
 
-.three-boxes-line {
-  max-width: 900px;
+.honeypot {
+  display: none;
 }
 
-.hover {
-  display: none;
+@media (max-width: 640px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
