@@ -5,23 +5,19 @@
     <p>Je prends la protection de vos renseignements personnels très au sérieux. Cette politique de confidentialité explique comment je collectionne, utilise, conserve et protége vos données personnelles lorsque vous utilisez notre formulaire de contact.</p>
     <br>
     <h3>1. Renseignements collectés</h3>
-    <p>
-      Lorsque vous remplissez notre formulaire de contact, nous collectons les informations suivantes :
-      <ul>
-        <li>Nom et prénom: pour vous identifier.</li>
-        <li>Adresse e-mail: pour communiquer avec vous.</li>
-        <li>Message: pour comprendre votre demande ou intérêt envers nos services.</li>
-      </ul>
-    </p>
+    <p>Lorsque vous remplissez notre formulaire de contact, nous collectons les informations suivantes :</p>
+    <ul>
+      <li>Nom et prénom: pour vous identifier.</li>
+      <li>Adresse e-mail: pour communiquer avec vous.</li>
+      <li>Message: pour comprendre votre demande ou intérêt envers nos services.</li>
+    </ul>
     <br>
     <h3>2. Finalité de la collecte</h3>
-    <p>
-      Les renseignements collectés via le formulaire sont utilisés exclusivement pour :
-      <ul>
-        <li>Répondre à votre demande ou message.</li>
-        <li>Vous recontacter concernant les services que vous avez exprimé un intérêt à recevoir.</li>
-      </ul>
-    </p>
+    <p>Les renseignements collectés via le formulaire sont utilisés exclusivement pour :</p>
+    <ul>
+      <li>Répondre à votre demande ou message.</li>
+      <li>Vous recontacter concernant les services que vous avez exprimé un intérêt à recevoir.</li>
+    </ul>
     <br>
     <h3>3. Conservation des données</h3>
     <p>
@@ -39,14 +35,12 @@
     </p>
     <br>
     <h3>6. Vos droits</h3>
-    <p>
-      Conformément à la Loi 25, vous disposez des droits suivants concernant vos renseignements personnels :
-      <ul>
-        <li>Droit d'accès : Vous pouvez demander à accéder aux renseignements personnels que nous détenons à votre sujet.</li>
-        <li>Droit de rectification : Vous pouvez demander la correction de toute information inexacte ou incomplète.</li>
-        <li>Retrait et suppression : Vous pouvez demander la suppression de vos données avant le délai d’un an.</li>
-      </ul>
-    </p>
+    <p>Conformément à la Loi 25, vous disposez des droits suivants concernant vos renseignements personnels :</p>
+    <ul>
+      <li>Droit d’accès : Vous pouvez demander à accéder aux renseignements personnels que nous détenons à votre sujet.</li>
+      <li>Droit de rectification : Vous pouvez demander la correction de toute information inexacte ou incomplète.</li>
+      <li>Retrait et suppression : Vous pouvez demander la suppression de vos données avant le délai d’un an.</li>
+    </ul>
     <p>Pour exercer ces droits, veuillez me contacter à l'adresse e-mail suivante : hl@hugolemieux.com.</p>
     <br>
     <h3>7. Consentement</h3>
@@ -67,13 +61,13 @@
 
 span {
   font-size: 0.875rem;
-  color: var(--secondary);
+  color: var(--text-dim);
 }
 
 ul {
   list-style-type: disc;
   font-size: 1.3rem;
   font-family: var(--font-text);
-  color: var(--secondary);
+  color: var(--text-dim);
 }
 </style>

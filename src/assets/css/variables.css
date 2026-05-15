@@ -1,12 +1,22 @@
 :root {
-  --background: #212426;
-  --primary: #6e7890;
-  --primary-light: #aac1d8;
-  --secondary: #f1f5f9;
-  --accent: #0031ad;
+  --background: #09090b;
+  --surface: #111116;
+  --surface-2: #18181f;
+  --border: #23232e;
+  --border-bright: #2d2d3f;
 
-  --gray: #b1b2b5;
+  --primary: #22d3ee;
+  --primary-dim: #0e7490;
+  --primary-glow: rgba(34, 211, 238, 0.12);
+  --primary-glow-strong: rgba(34, 211, 238, 0.25);
 
-  --font-title: 'Montserrat', sans-serif;
+  --purple: #818cf8;
+  --purple-glow: rgba(129, 140, 248, 0.12);
+
+  --text: #e2e8f0;
+  --text-dim: #94a3b8;
+  --text-muted: #64748b;
+
+  --font-title: 'Inter', sans-serif;
   --font-text: 'Cutive Mono', monospace;
 }

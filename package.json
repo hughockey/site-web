@@ -5,12 +5,16 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc -b && vite build",
+    "build": "vue-tsc -b && vite-ssg build",
     "preview": "vite preview"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
+    "@vueuse/motion": "^3.0.3",
+    "typed.js": "^3.0.0",
+    "vite-ssg": "^28.3.0",
     "vue": "^3.4.37",
+    "vue-router": "^5.0.7",
     "vue-toastification": "^2.0.0-rc.5"
   },
   "devDependencies": {

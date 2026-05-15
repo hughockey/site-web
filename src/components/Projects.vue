@@ -6,34 +6,23 @@ import Modal from "./Modal.vue";
 
 const items = ref(projets);
 
+const imageMap: Record<string, string> = {
+  "Portail Alfred": "../assets/images/dashboard.png",
+  "Inventaire": "../assets/images/inventaire.png",
+  "Menu": "../assets/images/menu.png",
+  "Octo": "../assets/images/octo.png",
+  "Portail Equipe Carrière": "../assets/images/ec-dashboard.png",
+  "Site web Joe Rullier": "../assets/images/jr.png",
+  "GamerZ": "../assets/images/gamerz.jpg",
+  "Mon site web": "../assets/images/mon-site.png",
+};
+
 items.value.forEach(item => {
-  switch (item.nom) {
-    case "Portail Alfred":
-      item.captureEcran = new URL('../assets/images/dashboard.png', import.meta.url).href;
-      break;
-    case "Inventaire":
-      item.captureEcran = new URL('../assets/images/inventaire.png', import.meta.url).href;
-      break;
-    case "Menu":
-      item.captureEcran = new URL('../assets/images/menu.png', import.meta.url).href;
-      break;
-    case "Octo":
-      item.captureEcran = new URL('../assets/images/octo.png', import.meta.url).href;
-      break;
-    case "Portail Equipe Carrière":
-      item.captureEcran = new URL('../assets/images/ec-dashboard.png', import.meta.url).href;
-      break;
-    case "Site web Joe Rullier":
-      item.captureEcran = new URL('../assets/images/jr.png', import.meta.url).href;
-      break;
-    case "GamerZ":
-      item.captureEcran = new URL('../assets/images/gamerz.jpg', import.meta.url).href;
-      break;
-    case "Mon site web":
-      item.captureEcran = new URL('../assets/images/mon-site.png', import.meta.url).href;
-      break;
-    default:
-      item.captureEcran = ''; // or a default image path
+  const key = item.nom as keyof typeof imageMap;
+  if (imageMap[key]) {
+    item.captureEcran = new URL(imageMap[key], import.meta.url).href;
+  } else {
+    item.captureEcran = '';
   }
 });
 
@@ -52,119 +41,227 @@ const showModal = (project: string) => {
     lien.value = item.lien || '';
   }
   projectModal.value?.openDialog();
-}
-
+};
 </script>
+
 <template>
-  <section>
-    <h1>Projets</h1>
-     <section>
-      <div class="project-list-container">
-        <div v-for="item in items" class="project-container">
-          <img :src="item.captureEcran" alt="capture d'écran de l'application / site web"/>
-          <div class="overlay-content" @click="showModal(item.nom)">
-            <h3>{{ item.nom }}</h3>
-            <div class="tag-list">
-              <template v-for="tag in item.stack">
-                <Tag :class="'tag-spacing'" :label="tag" />
-              </template>
+  <div class="projects-page">
+    <div
+      class="page-header"
+      v-motion
+      :initial="{ opacity: 0, y: 30 }"
+      :enter="{ opacity: 1, y: 0, transition: { duration: 600 } }"
+    >
+      <span class="section-tag">// projets</span>
+      <h1>Mes réalisations</h1>
+      <p>Un aperçu de ce que j'ai construit.</p>
+    </div>
+
+    <div class="project-grid">
+      <div
+        v-for="(item, index) in items"
+        :key="item.nom"
+        class="project-card"
+        @click="showModal(item.nom)"
+        v-motion
+        :initial="{ opacity: 0, scale: 0.95 }"
+        :visibleOnce="{ opacity: 1, scale: 1, transition: { delay: index * 80, duration: 500 } }"
+      >
+        <div class="card-image">
+          <img :src="item.captureEcran" :alt="item.nom" />
+          <div class="card-overlay">
+            <div class="overlay-inner">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+                <path d="m21 21-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <span>Voir le projet</span>
             </div>
           </div>
         </div>
-
-      </div>
-     </section>
-  </section>
-  <Modal page="projects"  ref="projectModal">
-    <template #content>
-      <div class="modal-content">
-        <h3>{{ title }}</h3>
-        <img :src="image" alt="capture d'écran de l'application / site web"/>
-        <div>
-          <p>{{ description }}</p>
-          <a v-if="lien !== ''" :href="lien" target="_blank" rel="nofollow">Cliquez ici pour voir le site web</a>
+        <div class="card-meta">
+          <h3>{{ item.nom }}</h3>
+          <div class="tag-list">
+            <Tag v-for="tag in item.stack" :key="tag" :label="tag" />
+          </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <Modal page="projects" ref="projectModal">
+    <template #title>
+      <h2>{{ title }}</h2>
+    </template>
+    <template #content>
+      <div class="modal-inner">
+        <img :src="image" :alt="title" class="modal-img" />
+        <p>{{ description }}</p>
+        <a v-if="lien" :href="lien" target="_blank" rel="nofollow" class="modal-link">
+          Voir le site web →
+        </a>
       </div>
     </template>
   </Modal>
 </template>
 
 <style lang="css" scoped>
-section {
-  min-height: calc(100vh - 80px);
+.projects-page {
   max-width: 1200px;
   margin: 0 auto;
-  text-align: center;
-  display: grid;
-  gap: 0.625rem;
-  place-items: center;
-}
-
-.modal-content {
-  text-align: center;
-}
-
-h3 {
-  padding-bottom: 10px;
-}
-
-.project-list-container {
-  display: flex;
-  gap: 0.625rem;
-  flex-wrap: wrap;
-  justify-content: center
-}
-
-.project-container {
+  padding: 4rem 2rem 6rem;
   position: relative;
+  z-index: 1;
 }
 
-img {
-  width: 28.125rem;
-  cursor: pointer;
-  height: 230px;
-  object-fit: cover;
-  object-position: top left;
-}
-
-.overlay-content {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: -webkit-fill-available;
-  height: -moz-available;
-  height: fill-available;
-  width: -webkit-fill-available;
-  width: -moz-available;
-  width: fill-available;
-  background-color: rgba(0, 0, 0, 0.6);
-  color: white;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+.page-header {
+  text-align: center;
+  margin-bottom: 4rem;
   display: flex;
   flex-direction: column;
-  cursor: pointer;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-.project-container:hover .overlay-content {
+.section-tag {
+  font-family: var(--font-text);
+  font-size: 0.8rem;
+  color: var(--primary);
+  letter-spacing: 0.1em;
+}
+
+.page-header p {
+  color: var(--text-dim);
+  max-width: 400px;
+  text-align: center;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 1.25rem;
+}
+
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.project-card:hover {
+  border-color: var(--primary);
+  box-shadow: 0 0 30px var(--primary-glow);
+  transform: translateY(-4px);
+}
+
+.card-image {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+  transition: transform 0.4s ease;
+  display: block;
+}
+
+.project-card:hover .card-image img {
+  transform: scale(1.04);
+}
+
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(9, 9, 11, 0.85), rgba(14, 116, 144, 0.4));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.project-card:hover .card-overlay {
   opacity: 1;
 }
 
-.overlay-content h3 {
-  margin: 0;
-  font-size: 1.5rem;
-  color: var(--gray)
+.overlay-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary);
+}
+
+.overlay-inner span {
+  font-family: var(--font-text);
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.card-meta {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.card-meta h3 {
+  font-size: 0.95rem;
+  color: var(--text);
 }
 
 .tag-list {
   display: flex;
-  gap: 0.625rem;
-  margin-top: 0.625rem;
+  flex-wrap: wrap;
+  gap: 0.35rem;
 }
 
-.tag-spacing {
+/* Modal content */
+.modal-inner {
   display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  text-align: left;
+}
+
+.modal-img {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  object-fit: cover;
+  max-height: 320px;
+}
+
+.modal-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-text);
+  font-size: 0.9rem;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: background 0.2s, box-shadow 0.2s;
+  align-self: flex-start;
+}
+
+.modal-link:hover {
+  background: var(--primary-glow);
+  box-shadow: 0 0 16px var(--primary-glow-strong);
+  color: var(--primary);
+}
+
+@media (max-width: 640px) {
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
