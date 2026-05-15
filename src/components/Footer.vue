@@ -4,7 +4,7 @@
 <template>
   <footer class="footer">
     <span class="footer-text">Hugo Lemieux &copy; 2025</span>
-    <span class="footer-sep">/</span>
+    <span class="footer-sep" aria-hidden="true">/</span>
     <a href="/politique-de-confidentialite" class="footer-link">Politique de confidentialité</a>
   </footer>
 </template>
@@ -44,5 +44,11 @@
 
 .footer-link:hover {
   color: var(--primary);
+}
+
+.footer-link:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 </style>

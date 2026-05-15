@@ -1,6 +1,6 @@
 <template>
-  <section class="max-content-width alignment">
-    <h2>Politique de confidentialité</h2>
+  <section class="max-content-width alignment" aria-labelledby="politique-title">
+    <h2 id="politique-title">Politique de confidentialité</h2>
     <span>Dernière mise à jour: 13 février 2025</span>
     <p>Je prends la protection de vos renseignements personnels très au sérieux. Cette politique de confidentialité explique comment je collectionne, utilise, conserve et protége vos données personnelles lorsque vous utilisez notre formulaire de contact.</p>
     <br>

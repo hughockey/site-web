@@ -62,7 +62,12 @@ const showModal = (project: string) => {
         v-for="(item, index) in items"
         :key="item.nom"
         class="project-card"
+        role="button"
+        tabindex="0"
+        :aria-label="`Voir le projet ${item.nom}`"
         @click="showModal(item.nom)"
+        @keydown.enter="showModal(item.nom)"
+        @keydown.space.prevent="showModal(item.nom)"
         v-motion
         :initial="{ opacity: 0, scale: 0.95 }"
         :visibleOnce="{ opacity: 1, scale: 1, transition: { delay: index * 80, duration: 500 } }"
@@ -71,7 +76,7 @@ const showModal = (project: string) => {
           <img :src="item.captureEcran" :alt="item.nom" />
           <div class="card-overlay">
             <div class="overlay-inner">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                 <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
                 <path d="m21 21-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
               </svg>
@@ -97,7 +102,7 @@ const showModal = (project: string) => {
       <div class="modal-inner">
         <img :src="image" :alt="title" class="modal-img" />
         <p>{{ description }}</p>
-        <a v-if="lien" :href="lien" target="_blank" rel="nofollow" class="modal-link">
+        <a v-if="lien" :href="lien" target="_blank" rel="noopener noreferrer nofollow" class="modal-link">
           Voir le site web →
         </a>
       </div>
@@ -155,6 +160,12 @@ const showModal = (project: string) => {
   border-color: var(--primary);
   box-shadow: 0 0 30px var(--primary-glow);
   transform: translateY(-4px);
+}
+
+.project-card:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-color: var(--primary);
 }
 
 .card-image {
@@ -257,6 +268,11 @@ const showModal = (project: string) => {
   background: var(--primary-glow);
   box-shadow: 0 0 16px var(--primary-glow-strong);
   color: var(--primary);
+}
+
+.modal-link:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
 }
 
 @media (max-width: 640px) {

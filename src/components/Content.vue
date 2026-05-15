@@ -90,7 +90,7 @@ const sendEmail = async () => {
 const modalComponent = ref<InstanceType<typeof Modal>>();
 const clickedCardId = ref<string>("");
 
-const showModal = (e: MouseEvent) => {
+const showModal = (e: Event) => {
   const target = e.currentTarget as HTMLElement;
   clickedCardId.value = target.dataset.text || "";
   const cardInfos = cardsData.filter((card: any) => card.id === clickedCardId.value);
@@ -129,8 +129,8 @@ const steps = [
       Salut, moi c'est<br />
       <span class="gradient-text">Hugo Lemieux.</span>
     </h1>
-    <p class="hero-sub">
-      Développeur depuis 10 ans —&nbsp;<span ref="typedEl"></span>
+    <p class="hero-sub" aria-label="Développeur depuis 10 ans — développeur frontend depuis 7 ans, pigiste, passionné de web et d'automatisation.">
+      Développeur depuis 10 ans —&nbsp;<span ref="typedEl" aria-hidden="true"></span>
     </p>
     <div class="hero-actions">
       <a href="/projects" class="btn-primary">Voir mes projets</a>
@@ -154,22 +154,27 @@ const steps = [
         v-for="(service, index) in services"
         :key="service.id"
         class="card"
+        role="button"
+        tabindex="0"
+        :aria-label="service.label"
         :data-text="service.id"
         @click="showModal($event)"
+        @keydown.enter="showModal($event)"
+        @keydown.space.prevent="showModal($event)"
         v-motion
         :initial="{ opacity: 0, y: 40 }"
         :visibleOnce="{ opacity: 1, y: 0, transition: { delay: index * 120, duration: 600 } }"
       >
         <div class="card-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
             <polyline points="16 18 22 12 16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             <polyline points="8 6 2 12 8 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
         <h3>{{ service.label }}</h3>
-        <div class="card-footer">
+        <div class="card-footer" aria-hidden="true">
           <span class="card-more">En savoir plus</span>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
             <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
@@ -194,8 +199,13 @@ const steps = [
         v-for="(step, index) in steps"
         :key="step.id"
         class="step-card"
+        role="button"
+        tabindex="0"
+        :aria-label="step.label"
         :data-text="step.id"
         @click="showModal($event)"
+        @keydown.enter="showModal($event)"
+        @keydown.space.prevent="showModal($event)"
         v-motion
         :initial="{ opacity: 0, x: -20 }"
         :visibleOnce="{ opacity: 1, x: 0, transition: { delay: index * 100, duration: 550 } }"
@@ -234,6 +244,7 @@ const steps = [
             type="text"
             placeholder="Nom"
             name="contact_name"
+            aria-label="Nom"
             @blur="validateField($event)"
           />
           <input
@@ -241,6 +252,7 @@ const steps = [
             type="email"
             placeholder="Courriel"
             name="contact_email"
+            aria-label="Courriel"
             @blur="validateField($event)"
           />
         </div>
@@ -249,6 +261,7 @@ const steps = [
           placeholder="Message"
           name="message"
           rows="5"
+          aria-label="Message"
           @blur="validateField($event)"
         ></textarea>
         <label class="consent-label">
@@ -266,7 +279,7 @@ const steps = [
             <a href="/politique-de-confidentialite">Politique de confidentialité</a>.
           </span>
         </label>
-        <input type="text" name="website" autocomplete="off" tabindex="-1" class="honeypot" v-model="honeypot" />
+        <input type="text" name="website" autocomplete="off" tabindex="-1" aria-hidden="true" class="honeypot" v-model="honeypot" />
         <button type="submit" class="submit-btn">Soumettre</button>
       </form>
     </div>
@@ -373,6 +386,11 @@ const steps = [
   color: var(--background);
 }
 
+.btn-primary:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
 /* ── Content sections ── */
 .content-section {
   max-width: 1200px;
@@ -426,6 +444,12 @@ const steps = [
   border-color: var(--primary);
   box-shadow: 0 0 30px var(--primary-glow);
   transform: translateY(-3px);
+}
+
+.card:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-color: var(--primary);
 }
 
 .card-icon {
@@ -491,6 +515,12 @@ const steps = [
 .step-card:hover {
   border-color: var(--primary);
   box-shadow: 0 0 20px var(--primary-glow);
+}
+
+.step-card:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-color: var(--primary);
 }
 
 .step-num {

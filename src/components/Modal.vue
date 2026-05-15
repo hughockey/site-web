@@ -19,11 +19,11 @@ defineExpose({ openDialog });
 </script>
 
 <template>
-  <dialog :class="['modal-dialog', props.page === 'home' ? 'home-size' : 'project-size']" ref="dialog">
+  <dialog :class="['modal-dialog', props.page === 'home' ? 'home-size' : 'project-size']" ref="dialog" :aria-labelledby="`dialog-title-${props.page}`">
     <div class="modal-header">
-      <slot name="title"></slot>
+      <div :id="`dialog-title-${props.page}`"><slot name="title"></slot></div>
       <button class="close-btn" type="button" @click="closeDialog" aria-label="Fermer">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
           <path d="M18 6 6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
       </button>
@@ -90,6 +90,11 @@ defineExpose({ openDialog });
   color: var(--text);
   background: var(--surface-2);
   box-shadow: none;
+}
+
+.close-btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
 @media (max-width: 1024px) {
